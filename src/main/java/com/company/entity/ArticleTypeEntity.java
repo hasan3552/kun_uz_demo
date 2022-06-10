@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "article_type")
-public class Article_type {
+public class ArticleTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +35,6 @@ public class Article_type {
     @Column(name = "status")
     private CategoryStatus status = CategoryStatus.ACTIVE;
 
+    @Column(nullable = false)
+    Boolean visible = Boolean.TRUE;
 }

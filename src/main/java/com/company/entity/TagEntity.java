@@ -27,6 +27,8 @@ public class TagEntity {
     @Column(nullable = false, name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 
+    @Column(nullable = false)
+    Boolean visible = Boolean.TRUE;
 
 
 }

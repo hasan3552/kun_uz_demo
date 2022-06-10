@@ -1,0 +1,24 @@
+POST http://localhost:8080/region
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4MDM0OTAsImV4cCI6MTY1NDgwNzA5MCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.0FPUYH3jPfdCIUtGMJORQ6le5pVK_Ar-5MWEFapDEvI
+
+{
+  "nameUz": "regionUz2",
+  "nameRu": "regionRu3",
+  "nameEn": "regionEn3"
+}
+
+###
+PUT http://localhost:8080/region/1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4MDM0OTAsImV4cCI6MTY1NDgwNzA5MCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.0FPUYH3jPfdCIUtGMJORQ6le5pVK_Ar-5MWEFapDEvI
+
+{
+  "nameUz": "regionUzUpdate",
+  "nameRu": "regionRuUpdate",
+  "nameEn": "regionEnUpdate"
+}
+
+###
+GET http://localhost:8080/region/list
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4MDM0OTAsImV4cCI6MTY1NDgwNzA5MCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.0FPUYH3jPfdCIUtGMJORQ6le5pVK_Ar-5MWEFapDEvI

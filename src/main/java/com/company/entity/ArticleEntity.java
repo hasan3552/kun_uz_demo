@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.enums.ArticleStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +35,9 @@ public class ArticleEntity {
     @Column(nullable = false)
     private Integer shareCount = 0;
 
+    @Column(nullable = false)
+    private Integer viewCount = 0;
+
     @JoinColumn(name = "image_id", nullable = false)
     @OneToOne(targetEntity = AttachEntity.class, fetch = FetchType.LAZY)
     private AttachEntity attachEntity;
@@ -42,14 +46,23 @@ public class ArticleEntity {
     @OneToOne(targetEntity = RegionEntity.class, fetch = FetchType.LAZY)
     private RegionEntity regionEntity;
 
+    @JoinColumn(name = "category_id", nullable = false)
+    @OneToOne(targetEntity = CategoryEntity.class, fetch = FetchType.LAZY)
+    private CategoryEntity categoryEntity;
+
+    @JoinColumn(name = "moderator_id", nullable = false)
+    @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
+    private ProfileEntity moderatorEntity;
+
+    @JoinColumn(name = "publisher_id", nullable = false)
+    @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
+    private ProfileEntity publisherEntity;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ArticleStatus status;
+
     @Column(nullable = false)
     Boolean visible = Boolean.TRUE;
-
-
-
-
-
-
-
 
 }

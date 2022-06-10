@@ -30,9 +30,11 @@ public class RegionEntity {
     private String key;
 
     @Column(nullable = false,name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "status")
-    private RegionStatus status;
+    private RegionStatus status = RegionStatus.ACTIVE;
 
+    @Column(nullable = false)
+    Boolean visible = Boolean.TRUE;
 }

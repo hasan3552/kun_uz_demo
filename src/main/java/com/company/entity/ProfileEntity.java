@@ -30,7 +30,7 @@ public class ProfileEntity {
     private String password;
 
     @Column(nullable = false, unique = true)
-    private String emile;
+    private String email;
 
     @Column
     private LocalDateTime createdDate = LocalDateTime.now();
@@ -44,11 +44,11 @@ public class ProfileEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private ProfileRole role;
+    private ProfileRole role = ProfileRole.USER;
 
 
     @Column(name = "language")
     @Enumerated(EnumType.STRING)
-    private Language language;
+    private Language language = Language.UZ;
 
 }

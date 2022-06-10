@@ -32,4 +32,7 @@ public class AttachEntity {
     @Column(nullable = false)
     private String name;
 
+
+    @Column(nullable = false)
+    Boolean visible = Boolean.TRUE;
 }

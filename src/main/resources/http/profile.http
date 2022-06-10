@@ -1,0 +1,32 @@
+POST http://localhost:8080/profile
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NzgwNjEsImV4cCI6MTY1NDc4MTY2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.BH0f5GeFqHGe-UvUa4UrQuOWAg_4waeZByyaqFKpdlo
+
+{
+  "name": "Ali",
+  "surname": "Aliyev",
+  "email": "email1",
+  "password": "123"
+}
+
+
+###
+
+PUT http://localhost:8080/profile/6
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NzgwNjEsImV4cCI6MTY1NDc4MTY2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.BH0f5GeFqHGe-UvUa4UrQuOWAg_4waeZByyaqFKpdlo
+
+{
+  "name": "Toshmat",
+  "surname": "Toshmatov"
+}
+
+###
+PUT http://localhost:8080/profile/detail/update
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NzgwNjEsImV4cCI6MTY1NDc4MTY2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.BH0f5GeFqHGe-UvUa4UrQuOWAg_4waeZByyaqFKpdlo
+
+{
+  "name": "ToshmatJon",
+  "surname": "Toshov"
+}

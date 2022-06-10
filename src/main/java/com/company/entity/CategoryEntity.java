@@ -31,9 +31,13 @@ public class CategoryEntity {
     private String key;
 
     @Column(nullable = false,name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private CategoryStatus status = CategoryStatus.ACTIVE;
 
+    @Column(nullable = false)
+    Boolean visible = Boolean.TRUE;
 }
+

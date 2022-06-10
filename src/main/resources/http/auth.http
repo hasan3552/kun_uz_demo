@@ -1,0 +1,40 @@
+### ADMIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "1234",
+  "password": "123"
+}
+
+### USER auht
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+"email": "toshmat",
+"password": "123"
+}
+
+
+###
+POST http://localhost:8080/auth/registration
+Content-Type: application/json
+
+{
+  "name": "Ali",
+  "surname": "Aliyev",
+  "login": "alish",
+  "password": "123"
+}
+
+###
+POST http://localhost:8080/auth/registration
+Content-Type: application/json
+
+{
+  "name": "admin",
+  "surname": "adminjon",
+  "email": "1234",
+  "password": "123"
+}

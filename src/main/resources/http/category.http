@@ -1,0 +1,24 @@
+POST http://localhost:8080/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+
+{
+  "nameUz": "categoryUz",
+  "nameRu": "categoryRu",
+  "nameEn": "categoryEn"
+}
+
+###
+PUT http://localhost:8080/category/1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+
+{
+  "nameUz": "categoryUzUpdate",
+  "nameRu": "categoryRuUpdate",
+  "nameEn": "categoryEnUpdate"
+}
+
+###
+GET http://localhost:8080/category/list
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
