@@ -1,17 +1,17 @@
 POST http://localhost:8080/category
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTE5MTAsImV4cCI6MTY1NDk1NTUxMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.6ahFvUjhGPYg6qeOSiQdnIYue9KbxYO_DB4xHhEfBb4
 
 {
-  "nameUz": "categoryUz",
-  "nameRu": "categoryRu",
-  "nameEn": "categoryEn"
+  "nameUz": "categoryUz2",
+  "nameRu": "categoryRu2",
+  "nameEn": "categoryEn2"
 }
 
 ###
 PUT http://localhost:8080/category/1
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+Authorization:eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4OTYsImV4cCI6MTY1NDkzNDQ5NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hhtD4MGhdAyvIRlEBcQL8r3oQ6k_HVvMU1F_UWpyC2I
 
 {
   "nameUz": "categoryUzUpdate",
@@ -21,4 +21,9 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1
 
 ###
 GET http://localhost:8080/category/list
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+Authorization:eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4OTYsImV4cCI6MTY1NDkzNDQ5NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hhtD4MGhdAyvIRlEBcQL8r3oQ6k_HVvMU1F_UWpyC2I
+
+
+###
+DELETE http://localhost:8080/category/1
+Authorization:eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4OTYsImV4cCI6MTY1NDkzNDQ5NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hhtD4MGhdAyvIRlEBcQL8r3oQ6k_HVvMU1F_UWpyC2I

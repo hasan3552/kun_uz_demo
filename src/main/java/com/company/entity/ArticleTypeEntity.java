@@ -1,6 +1,6 @@
 package com.company.entity;
 
-import com.company.enums.CategoryStatus;
+import com.company.enums.ArticleTagStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,24 +17,22 @@ public class ArticleTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String nameUz;
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
+
+    @JoinColumn(name = "type_id", nullable = false)
+    @ManyToOne(targetEntity = TypesEntity.class)
+    private TypesEntity types;
+
+    @JoinColumn(name = "article_id", nullable = false)
+    @ManyToOne(targetEntity = ArticleEntity.class)
+    private ArticleEntity article;
 
     @Column(nullable = false)
-    private String nameRu;
-
-    @Column(nullable = false)
-    private String nameEn;
-
-    @Column(nullable = false, unique = true)
-    private String key;
-
-    @Column(nullable = false,name = "created_date")
-    private LocalDateTime createdDate;
-
-    @Column(name = "status")
-    private CategoryStatus status = CategoryStatus.ACTIVE;
+    @Enumerated(EnumType.STRING)
+    private ArticleTagStatus status = ArticleTagStatus.ACTIVE;
 
     @Column(nullable = false)
     Boolean visible = Boolean.TRUE;
+
 }

@@ -1,0 +1,22 @@
+POST http://localhost:8080/comment
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwMjcxNjksImV4cCI6MTY1NTAzMDc2OSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.7KLrExd7SS9-8TzLxc49me508Z23gYe7bUf_wjnB9Pc
+
+{
+  "content": "content1",
+  "articleId": "4028b6cd8152e3a7018152e3ca520000",
+  "commentId": 3
+
+}
+
+###
+PUT http://localhost:8080/comment/3
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwMjc2NTcsImV4cCI6MTY1NTAzMTI1NywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9._S9hayum6X2U69iWSSmAwkV_VEQD9IWDwJdVm4Ve5oE
+
+{
+
+  "content": "update3",
+  "articleId": "4028b6cd8152e3a7018152e3ca520000"
+
+}

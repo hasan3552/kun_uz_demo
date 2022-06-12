@@ -3,6 +3,7 @@ package com.company.entity;
 import com.company.enums.TagStatus;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -16,9 +17,10 @@ import java.util.UUID;
 public class AttachEntity {
 
     @Id
-    @Column(name = "id")
-    @Type(type = "uuid-char")
-    private UUID uuid = UUID.randomUUID();
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(name = "uuid", unique = true)
+    private String uuid;
 
     @Column(nullable = false, name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();

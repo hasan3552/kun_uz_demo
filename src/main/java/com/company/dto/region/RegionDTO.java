@@ -1,4 +1,4 @@
-package com.company.dto;
+package com.company.dto.region;
 
 import com.company.enums.RegionStatus;
 import lombok.Getter;

@@ -1,10 +1,10 @@
 package com.company.controller;
 
-import com.company.dto.ArticleTypeCreateDTO;
-import com.company.dto.ArticleTypeDTO;
+import com.company.dto.type.TypeCreateDTO;
+import com.company.dto.type.TypeDTO;
 import com.company.enums.ProfileRole;
-import com.company.service.ArticleTypeService;
 import com.company.service.ProfileService;
+import com.company.service.TypeService;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,29 +13,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/article_type")
-public class ArticleTypeController {
+@RequestMapping("/type")
+public class TypeController {
 
     @Autowired
     private ProfileService profileService;
     @Autowired
-    private ArticleTypeService articleTypeService;
+    private TypeService typeService;
 
     @PostMapping("")
     public ResponseEntity<?> create(@RequestHeader("Authorization") String jwt,
-                                    @RequestBody ArticleTypeCreateDTO dto) {
+                                    @RequestBody TypeCreateDTO dto) {
         JwtUtil.decode(jwt, ProfileRole.ADMIN);
-        ArticleTypeDTO articleTypeDTO = articleTypeService.create(dto);
+        TypeDTO articleTypeDTO = typeService.create(dto);
 
         return ResponseEntity.ok(articleTypeDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestHeader("Authorization") String jwt,
-                                    @RequestBody ArticleTypeCreateDTO dto,
+                                    @RequestBody TypeCreateDTO dto,
                                     @PathVariable("id") Integer id) {
         JwtUtil.decode(jwt, ProfileRole.ADMIN);
-        ArticleTypeDTO update = articleTypeService.update(id, dto);
+        TypeDTO update = typeService.update(id, dto);
 
         return ResponseEntity.ok(update);
 
@@ -45,7 +45,7 @@ public class ArticleTypeController {
     public ResponseEntity<?> changeVisible(@RequestHeader("Authorization") String jwt,
                                            @PathVariable("id") Integer id) {
         JwtUtil.decode(jwt, ProfileRole.ADMIN);
-        ArticleTypeDTO articleTypeDTO = articleTypeService.changeVisible(id);
+        TypeDTO articleTypeDTO = typeService.changeVisible(id);
 
         return ResponseEntity.ok(articleTypeDTO);
     }
@@ -53,7 +53,7 @@ public class ArticleTypeController {
     @GetMapping("/list")
     public ResponseEntity<?> getAllRegion(@RequestHeader("Authorization") String jwt){
         JwtUtil.decode(jwt, ProfileRole.ADMIN);
-        List<ArticleTypeDTO> getAllArticleType = articleTypeService.getAll();
+        List<TypeDTO> getAllArticleType = typeService.getAll();
 
         return ResponseEntity.ok(getAllArticleType);
     }

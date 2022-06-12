@@ -44,11 +44,14 @@ public class ProfileEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private ProfileRole role = ProfileRole.USER;
+    private ProfileRole role;
 
 
     @Column(name = "language")
     @Enumerated(EnumType.STRING)
     private Language language = Language.UZ;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "moderatorEntity")
+//    private List<ArticleEntity> articleList;
 
 }

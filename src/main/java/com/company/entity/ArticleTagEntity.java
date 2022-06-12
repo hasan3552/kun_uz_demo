@@ -22,16 +22,16 @@ public class ArticleTagEntity {
     private LocalDateTime createdDate = LocalDateTime.now();
 
     @JoinColumn(name = "tag_id", nullable = false)
-    @OneToOne(targetEntity = TagEntity.class, fetch = FetchType.LAZY)
-    private TagEntity tagEntity;
+    @ManyToOne(targetEntity = TagEntity.class)
+    private TagEntity tag;
 
     @JoinColumn(name = "article_id", nullable = false)
-    @OneToOne(targetEntity = ArticleEntity.class, fetch = FetchType.LAZY)
-    private ArticleEntity articleEntity;
+    @OneToOne(targetEntity = ArticleEntity.class)
+    private ArticleEntity article;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ArticleTagStatus status;
+    private ArticleTagStatus status = ArticleTagStatus.ACTIVE;
 
 
     @Column(nullable = false)

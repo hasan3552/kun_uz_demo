@@ -1,4 +1,4 @@
-package com.company.dto;
+package com.company.dto.type;
 
 import com.company.enums.CategoryStatus;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ArticleTypeDTO {
+public class TypeDTO {
 
     private Integer id;
     private String nameUz;

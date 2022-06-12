@@ -1,7 +1,7 @@
 package com.company.controller;
 
-import com.company.dto.RegionCreateDTO;
-import com.company.dto.RegionDTO;
+import com.company.dto.region.RegionCreateDTO;
+import com.company.dto.region.RegionDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.ProfileService;
 import com.company.service.RegionService;

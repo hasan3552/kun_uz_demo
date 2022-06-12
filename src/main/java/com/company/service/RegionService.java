@@ -1,7 +1,7 @@
 package com.company.service;
 
-import com.company.dto.RegionCreateDTO;
-import com.company.dto.RegionDTO;
+import com.company.dto.region.RegionCreateDTO;
+import com.company.dto.region.RegionDTO;
 import com.company.entity.RegionEntity;
 import com.company.exp.BadRequestException;
 import com.company.exp.ItemNotFoundException;
@@ -28,7 +28,7 @@ public class RegionService {
 
         return getRegionDTO(regionEntity);
     }
-    private RegionDTO getRegionDTO(RegionEntity regionEntity){
+    public RegionDTO getRegionDTO(RegionEntity regionEntity){
 
         RegionDTO regionDTO = new RegionDTO();
         regionDTO.setCreatedDate(regionEntity.getCreatedDate());
@@ -118,6 +118,12 @@ public class RegionService {
         });
 
         return allRegion;
+    }
+
+    public RegionEntity get(Integer id) {
+        return regionRepository.findById(id).orElseThrow(() -> {
+            throw new ItemNotFoundException("Region not found");
+        });
     }
 
 }

@@ -19,7 +19,7 @@ public class CommentEntity {
     @Column(nullable = false, name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    @Column(nullable = false, name = "update_date")
+    @Column(name = "update_date")
     private LocalDateTime updateDate;
 
     @JoinColumn(nullable = false, name = "profile_id")
@@ -38,8 +38,6 @@ public class CommentEntity {
     private String content;
 
     @Column(nullable = false)
-    Boolean visible = Boolean.TRUE;
-
-
+    private Boolean visible = Boolean.TRUE;
 
 }

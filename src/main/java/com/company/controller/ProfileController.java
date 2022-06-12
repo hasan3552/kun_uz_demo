@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.dto.ProfileDTO;
+import com.company.dto.profile.ProfileDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.ProfileService;
 import com.company.util.JwtUtil;
@@ -54,8 +54,8 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/list")
-    public ResponseEntity<?> getAllProfile(@RequestHeader("Authorization") String jwt){
+    @GetMapping("")
+    public ResponseEntity<?> getProfileList(@RequestHeader("Authorization") String jwt){
 
         JwtUtil.decode(jwt,ProfileRole.ADMIN);
         List<ProfileDTO> profileDTOS = profileService.getAllProfileDTOById();

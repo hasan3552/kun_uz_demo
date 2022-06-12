@@ -1,11 +1,15 @@
 package com.company.service;
 
-import com.company.dto.ArticleTypeCreateDTO;
-import com.company.dto.ArticleTypeDTO;
+import com.company.dto.tag.TagDTO;
+import com.company.dto.type.TypeDTO;
+import com.company.entity.ArticleEntity;
+import com.company.entity.ArticleTagEntity;
 import com.company.entity.ArticleTypeEntity;
-import com.company.exp.BadRequestException;
+import com.company.entity.TypesEntity;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.ArticleTypeRepository;
+import com.company.repository.TagRepository;
+import com.company.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,107 +19,41 @@ import java.util.Optional;
 
 @Service
 public class ArticleTypeService {
+
     @Autowired
     private ArticleTypeRepository articleTypeRepository;
+    @Autowired
+    private TypeService typeService;
+    @Autowired
+    private TypeRepository typeRepository;
 
-    public ArticleTypeDTO create(ArticleTypeCreateDTO dto) {
+    public void create(ArticleEntity article, List<Integer> typeList){
 
-        isValid(dto);
-
-        ArticleTypeEntity articleTypeEntity = new ArticleTypeEntity();
-        save(dto,articleTypeEntity);
-
-        return getArticleTypeDTO(articleTypeEntity);
-    }
-    private ArticleTypeDTO getArticleTypeDTO(ArticleTypeEntity articleTypeEntity){
-
-        ArticleTypeDTO articleTypeDTO = new ArticleTypeDTO();
-        articleTypeDTO.setCreatedDate(articleTypeEntity.getCreatedDate());
-        articleTypeDTO.setId(articleTypeEntity.getId());
-        articleTypeDTO.setKey(articleTypeEntity.getKey());
-        articleTypeDTO.setStatus(articleTypeEntity.getStatus());
-        articleTypeDTO.setNameEn(articleTypeEntity.getNameEn());
-        articleTypeDTO.setNameRu(articleTypeEntity.getNameRu());
-        articleTypeDTO.setNameUz(articleTypeEntity.getNameUz());
-        articleTypeDTO.setVisible(articleTypeEntity.getVisible());
-
-        return articleTypeDTO;
+        typeList.forEach(integer -> {
+            ArticleTypeEntity articleTypeEntity = new ArticleTypeEntity();
+            articleTypeEntity.setArticle(article);
+            Optional<TypesEntity> optional = typeRepository.findById(integer);
+            if (optional.isEmpty()){
+                throw new ItemNotFoundException("Type not found");
+            }
+            articleTypeEntity.setTypes(optional.get());
+            articleTypeRepository.save(articleTypeEntity);
+        });
     }
 
-    private void isValid(ArticleTypeCreateDTO dto) {
+    public List<TypeDTO> getTypeByArticle(ArticleEntity entity) {
 
-        if (dto.getNameUz() == null || dto.getNameUz().isEmpty()){
-            throw new BadRequestException("Region name_uz wrong");
-        }
+        List<ArticleTypeEntity> list = articleTypeRepository.findAllByArticle(entity);
 
-        if (dto.getNameRu() == null || dto.getNameRu().isEmpty()){
-            throw new BadRequestException("Region name_ru wrong");
-        }
+        List<TypeDTO> typeDTOList = new ArrayList<>();
 
-        if (dto.getNameEn() == null || dto.getNameEn().isEmpty()){
-            throw new BadRequestException("Region name_en wrong");
-        }
-
-        Optional<ArticleTypeEntity> optional = articleTypeRepository
-                .findByNameEnOrNameRuOrNameUz(dto.getNameEn(), dto.getNameRu(), dto.getNameUz());
-
-        if (optional.isPresent()) {
-            throw new ItemNotFoundException("This region already exist");
-        }
-
-    }
-
-    public ArticleTypeDTO update(Integer id, ArticleTypeCreateDTO dto) {
-
-        isValid(dto);
-
-        Optional<ArticleTypeEntity> optional = articleTypeRepository.findById(id);
-        if (optional.isEmpty()){
-            throw new ItemNotFoundException("This region id not fount");
-        }
-
-        ArticleTypeEntity articleTypeEntity = optional.get();
-        save(dto,articleTypeEntity);
-
-        return getArticleTypeDTO(articleTypeEntity);
-    }
-
-    private void save(ArticleTypeCreateDTO dto, ArticleTypeEntity articleTypeEntity){
-
-        articleTypeEntity.setNameUz(dto.getNameUz());
-        articleTypeEntity.setNameRu(dto.getNameRu());
-        articleTypeEntity.setNameEn(dto.getNameEn());
-        articleTypeEntity.setKey("article_type_"+dto.getNameEn());
-
-        articleTypeRepository.save(articleTypeEntity);
-    }
-
-    public ArticleTypeDTO changeVisible(Integer id) {
-
-        Optional<ArticleTypeEntity> optional = articleTypeRepository.findById(id);
-        if (optional.isEmpty()){
-            throw new BadRequestException("Region not fount");
-        }
-
-        ArticleTypeEntity articleTypeEntity = optional.get();
-        articleTypeEntity.setVisible(!articleTypeEntity.getVisible());
-
-        articleTypeRepository.save(articleTypeEntity);
-
-        return getArticleTypeDTO(articleTypeEntity);
-    }
-
-    public List<ArticleTypeDTO> getAll() {
-
-        Iterable<ArticleTypeEntity> iterable = articleTypeRepository.findAll();
-
-        List<ArticleTypeDTO> allArticleType = new ArrayList<>();
-        iterable.forEach(articleTypeEntity -> {
-
-            ArticleTypeDTO articleTypeDTO = getArticleTypeDTO(articleTypeEntity);
-            allArticleType.add(articleTypeDTO);
+        list.forEach(articleTypeEntity -> {
+           // TagDTO tagDTO = tagService.getTagDTO(articleTagEntity.getTag());
+            TypeDTO typeDTO = typeService.getTypeDTO(articleTypeEntity.getTypes());
+            typeDTOList.add(typeDTO);
         });
 
-        return allArticleType;
+        return typeDTOList;
+
     }
 }

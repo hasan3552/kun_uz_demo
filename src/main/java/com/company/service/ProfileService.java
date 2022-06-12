@@ -1,8 +1,9 @@
 package com.company.service;
 
-import com.company.dto.ProfileDTO;
+import com.company.dto.profile.ProfileDTO;
 import com.company.entity.ProfileEntity;
 import com.company.enums.ProfileRole;
+import com.company.enums.ProfileStatus;
 import com.company.exp.BadRequestException;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.ProfileRepository;
@@ -34,6 +35,7 @@ public class ProfileService {
         entity.setPassword(dto.getPassword());
 
         entity.setRole(ProfileRole.USER);
+        entity.setStatus(ProfileStatus.ACTIVE);
 
         profileRepository.save(entity);
         dto.setId(entity.getId());
@@ -47,8 +49,6 @@ public class ProfileService {
         entity.setSurname(dto.getSurname());
         profileRepository.save(entity);
 
-
-
     }
 
     public ProfileEntity get(Integer id) {
@@ -56,7 +56,6 @@ public class ProfileService {
             throw new ItemNotFoundException("Profile Not found");
         });
     }
-
 
     public ProfileDTO getProfileDTOById(Integer id) {
 

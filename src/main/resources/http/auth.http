@@ -7,12 +7,12 @@ Content-Type: application/json
   "password": "123"
 }
 
-### USER auht
+### MODERATOR auht
 POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-"email": "toshmat",
+"email": "alish",
 "password": "123"
 }
 
@@ -24,7 +24,7 @@ Content-Type: application/json
 {
   "name": "Ali",
   "surname": "Aliyev",
-  "login": "alish",
+  "email": "alish",
   "password": "123"
 }
 
@@ -36,5 +36,26 @@ Content-Type: application/json
   "name": "admin",
   "surname": "adminjon",
   "email": "1234",
+  "password": "123"
+}
+
+###
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "111",
+  "password": "123"
+}
+
+###
+POST http://localhost:8080/auth/registration
+Content-Type: application/json
+
+{
+  "name": "user1",
+  "surname": "user1",
+  "email": "111",
   "password": "123"
 }

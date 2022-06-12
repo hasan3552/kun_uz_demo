@@ -1,0 +1,13 @@
+POST http://localhost:8080/type
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTI2MDAsImV4cCI6MTY1NDk1NjIwMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.n3D4YjCkeJWTeYXX8T1X5d2idW9mkfO9R5V__jYthxY
+
+{
+  "nameUz": "nameUz4",
+  "nameRu": "nameRu4",
+  "nameEn": "nameEn4"
+}
+
+###
+GET http://localhost:8080/type/list
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4OTYsImV4cCI6MTY1NDkzNDQ5NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.hhtD4MGhdAyvIRlEBcQL8r3oQ6k_HVvMU1F_UWpyC2I

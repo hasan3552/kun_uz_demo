@@ -1,11 +1,11 @@
-package com.company.dto;
+package com.company.dto.type;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticleTypeCreateDTO {
+public class TypeCreateDTO {
 
     private String nameUz;
     private String nameRu;

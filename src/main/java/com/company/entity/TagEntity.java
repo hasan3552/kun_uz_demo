@@ -2,6 +2,7 @@ package com.company.entity;
 
 import com.company.enums.TagStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "tag")
+@NoArgsConstructor
 public class TagEntity {
 
     @Id
@@ -22,7 +24,7 @@ public class TagEntity {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private TagStatus status;
+    private TagStatus status = TagStatus.ACTIVE;
 
     @Column(nullable = false, name = "created_date")
     private LocalDateTime createdDate = LocalDateTime.now();
@@ -30,5 +32,7 @@ public class TagEntity {
     @Column(nullable = false)
     Boolean visible = Boolean.TRUE;
 
-
+    public TagEntity(Integer id) {
+        this.id = id;
+    }
 }

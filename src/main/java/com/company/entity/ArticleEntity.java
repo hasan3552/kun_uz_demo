@@ -3,6 +3,7 @@ package com.company.entity;
 import com.company.enums.ArticleStatus;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,22 +15,19 @@ import java.time.LocalDateTime;
 public class ArticleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(name = "uuid", unique = true)
+    private String uuid;
 
-    @Column(nullable = false, name = "created_date")
-    private LocalDateTime createdDate = LocalDateTime.now();
 
-    @Column(nullable = false, name = "public_date")
-    private LocalDateTime publicDate;
-
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false)
@@ -38,31 +36,37 @@ public class ArticleEntity {
     @Column(nullable = false)
     private Integer viewCount = 0;
 
-    @JoinColumn(name = "image_id", nullable = false)
-    @OneToOne(targetEntity = AttachEntity.class, fetch = FetchType.LAZY)
-    private AttachEntity attachEntity;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate = LocalDateTime.now();
+
+    @Column(name = "public_date")
+    private LocalDateTime publicDate;
+
+//    @JoinColumn(name = "image_id", nullable = false)
+//    @OneToOne(targetEntity = AttachEntity.class, fetch = FetchType.LAZY)
+//    private AttachEntity attachEntity;
 
     @JoinColumn(name = "region_id", nullable = false)
-    @OneToOne(targetEntity = RegionEntity.class, fetch = FetchType.LAZY)
-    private RegionEntity regionEntity;
+    @ManyToOne(targetEntity = RegionEntity.class, fetch = FetchType.LAZY)
+    private RegionEntity region;
 
     @JoinColumn(name = "category_id", nullable = false)
-    @OneToOne(targetEntity = CategoryEntity.class, fetch = FetchType.LAZY)
-    private CategoryEntity categoryEntity;
+    @ManyToOne(targetEntity = CategoryEntity.class, fetch = FetchType.LAZY)
+    private CategoryEntity category;
 
     @JoinColumn(name = "moderator_id", nullable = false)
-    @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
-    private ProfileEntity moderatorEntity;
+    @ManyToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
+    private ProfileEntity moderator;
 
-    @JoinColumn(name = "publisher_id", nullable = false)
-    @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
-    private ProfileEntity publisherEntity;
+    @JoinColumn(name = "publisher_id")
+    @ManyToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
+    private ProfileEntity publisher;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ArticleStatus status;
 
     @Column(nullable = false)
-    Boolean visible = Boolean.TRUE;
+    private Boolean visible = Boolean.TRUE;
 
 }

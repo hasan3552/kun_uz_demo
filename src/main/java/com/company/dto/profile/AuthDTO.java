@@ -1,14 +1,14 @@
-package com.company.dto;
+package com.company.dto.profile;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RegistrationDTO {
+public class AuthDTO {
 
-    private String name;
-    private String surname;
     private String password;
     private String email;
+
+    private String jwt;
 }

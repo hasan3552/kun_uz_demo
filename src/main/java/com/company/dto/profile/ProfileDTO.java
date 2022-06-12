@@ -1,4 +1,4 @@
-package com.company.dto;
+package com.company.dto.profile;
 
 import com.company.enums.Language;
 import com.company.enums.ProfileRole;

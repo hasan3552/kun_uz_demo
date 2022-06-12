@@ -1,11 +1,8 @@
 package com.company.service;
 
-import com.company.dto.CategoryCreateDTO;
-import com.company.dto.CategoryDTO;
-import com.company.dto.RegionCreateDTO;
-import com.company.dto.RegionDTO;
+import com.company.dto.category.CategoryCreateDTO;
+import com.company.dto.category.CategoryDTO;
 import com.company.entity.CategoryEntity;
-import com.company.entity.RegionEntity;
 import com.company.exp.BadRequestException;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.CategoryRepository;
@@ -30,7 +27,7 @@ public class CategoryService {
 
         return getCategoryDTO(categoryEntity);
     }
-    private CategoryDTO getCategoryDTO(CategoryEntity categoryEntity){
+    public CategoryDTO getCategoryDTO(CategoryEntity categoryEntity){
 
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setCreatedDate(categoryEntity.getCreatedDate());
@@ -121,4 +118,23 @@ public class CategoryService {
 
         return allRegion;
     }
+    public CategoryEntity get(Integer id) {
+        return categoryRepository.findById(id).orElseThrow(() -> {
+            throw new ItemNotFoundException("Category not found");
+        });
+    }
+
+//    public CategoryDTO getCategoryDTO(CategoryEntity entity){
+//
+//        CategoryDTO categoryDTO = new CategoryDTO();
+//
+//        categoryDTO.setCreatedDate(entity.getCreatedDate());
+//        categoryDTO.setStatus(entity.getStatus());
+//        categoryDTO.setKey(entity.getKey());
+//        categoryDTO.setNameEn(entity.getNameEn());
+//        categoryDTO.setNameRu(entity.getNameRu());
+//        categoryDTO.setNameUz(entity.getNameUz());
+//
+//        return categoryDTO;
+//    }
 }

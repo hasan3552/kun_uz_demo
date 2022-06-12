@@ -1,0 +1,14 @@
+POST http://localhost:8080/article
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTIxNTgsImV4cCI6MTY1NDk1NTc1OCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiTU9ERVJBVE9SIn0.Pi8ElVHDdenOo_Cn510_I1wcOS1Wa5IQG0qUYAC5dcM
+
+{
+  "title": "title5",
+  "description": "description5",
+  "content": "content5",
+  "regionId": 2,
+  "categoryId": 2,
+  "typesList": [1,2],
+  "tagList": ["#epidemiya","#maymunChechak","#kasallik"]
+}
+

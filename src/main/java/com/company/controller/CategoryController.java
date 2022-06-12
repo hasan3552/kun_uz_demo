@@ -1,7 +1,7 @@
 package com.company.controller;
 
-import com.company.dto.CategoryCreateDTO;
-import com.company.dto.CategoryDTO;
+import com.company.dto.category.CategoryCreateDTO;
+import com.company.dto.category.CategoryDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.CategoryService;
 import com.company.service.ProfileService;

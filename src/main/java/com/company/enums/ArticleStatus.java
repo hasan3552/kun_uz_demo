@@ -2,6 +2,6 @@ package com.company.enums;
 
 public enum ArticleStatus {
 
-    ACTIVE,
-    BLOCKED
+    PUBLISHED,
+    NOT_PUBLISHED
 }
