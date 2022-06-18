@@ -1,6 +1,6 @@
-POST http://localhost:8080/region
+POST http://localhost:8080/region?file=<>&designation=
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTE5MTAsImV4cCI6MTY1NDk1NTUxMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.6ahFvUjhGPYg6qeOSiQdnIYue9KbxYO_DB4xHhEfBb4
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUyMjk0NTUsImV4cCI6MTY1NTIzMzA1NSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.KGTqMalEZjRx7aqTeNJ7T9EC-F06FV2JbakG8_f9N5E
 
 {
   "nameUz": "Andijan1",
@@ -27,3 +27,7 @@ Authorization:eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5MzA4OTYsImV4cCI6MTY1NDkzNDQ5N
 ###
 DELETE http://localhost:8080/region/1
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ4NDU3NTEsImV4cCI6MTY1NDg0OTM1MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.NqMPyHIyGqhgtN0PKvIlX8D83ABtO0YpZ3wFG2zA33w
+
+###
+GET http://localhost:8080/region?page=0&size=2
+Accept-Language: UZ

@@ -2,6 +2,7 @@ package com.company.entity;
 
 import com.company.enums.ArticleLikeStatus;
 import com.company.enums.ArticleStatus;
+import com.company.enums.LikeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,17 +24,14 @@ public class ArticleLikeEntity {
 
     @JoinColumn(name = "profile_id", nullable = false)
     @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
-    private ProfileEntity publisherEntity;
+    private ProfileEntity profile;
 
     @JoinColumn(name = "article_id", nullable = false)
     @OneToOne(targetEntity = ArticleEntity.class, fetch = FetchType.LAZY)
-    private ArticleEntity articleEntity;
+    private ArticleEntity article;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ArticleLikeStatus status;
+    private LikeStatus status;
 
-
-    @Column(nullable = false)
-    Boolean visible = Boolean.TRUE;
 }

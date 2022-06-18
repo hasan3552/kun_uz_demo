@@ -1,7 +1,5 @@
 package com.company.entity;
 
-import com.company.enums.ArticleLikeStatus;
-import com.company.enums.CommentLikeStatus;
 import com.company.enums.LikeStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +10,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "comment_like")
-public class CommentLikeEntity {
+@Table(name = "save_article")
+public class SaveArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +24,8 @@ public class CommentLikeEntity {
     @OneToOne(targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
     private ProfileEntity profile;
 
-    @JoinColumn(name = "comment_id", nullable = false)
-    @OneToOne(targetEntity = CommentEntity.class, fetch = FetchType.LAZY)
-    private CommentEntity comment;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private LikeStatus status;
+    @JoinColumn(name = "article_id", nullable = false)
+    @OneToOne(targetEntity = ArticleEntity.class, fetch = FetchType.LAZY)
+    private ArticleEntity article;
 
 }

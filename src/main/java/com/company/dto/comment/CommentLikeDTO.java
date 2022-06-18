@@ -1,7 +1,7 @@
-package com.company.dto.article;
+package com.company.dto.comment;
 
 import com.company.dto.profile.ProfileDTO;
-import com.company.enums.ArticleLikeStatus;
+import com.company.enums.CommentLikeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ArticleLikeDTO {
+public class CommentLikeDTO {
 
     private Integer id;
     private LocalDateTime createdDate;
     private ProfileDTO profileDTO;
-    private ArticleDTO articleDTO;
-    private ArticleLikeStatus status;
-    private Boolean visible;
+    private CommentDTO commentDTO;
+    private CommentLikeStatus status;
+
 }

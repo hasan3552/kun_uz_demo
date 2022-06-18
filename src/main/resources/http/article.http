@@ -1,14 +1,37 @@
-POST http://localhost:8080/article
+POST http://localhost:8080/article/adm
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTIxNTgsImV4cCI6MTY1NDk1NTc1OCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiTU9ERVJBVE9SIn0.Pi8ElVHDdenOo_Cn510_I1wcOS1Wa5IQG0qUYAC5dcM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzNzcwNzksImV4cCI6MTY1NTM4MDY3OSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiTU9ERVJBVE9SIn0.EN3FwHaVgdKjys3uO9ZBbotzIQKQops5Tgh3m-D0n1U
 
 {
-  "title": "title5",
-  "description": "description5",
-  "content": "content5",
+  "title": "title3423",
+  "description": "description432423",
+  "content": "content432423",
   "regionId": 2,
-  "categoryId": 2,
-  "typesList": [1,2],
-  "tagList": ["#epidemiya","#maymunChechak","#kasallik"]
+  "categoryId": 3,
+  "typesList": [3,2],
+  "tagList": ["#nimadir","#ali","#vali"]
 }
 
+###
+GET http://localhost:8080/article?id=8a8a843a816c2be501816c2c914e0000
+
+###
+
+DELETE http://localhost:8080/article/adm?id=8a8a843a816c2be501816c2c914e0000
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzNzcwNzksImV4cCI6MTY1NTM4MDY3OSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiTU9ERVJBVE9SIn0.EN3FwHaVgdKjys3uO9ZBbotzIQKQops5Tgh3m-D0n1U
+
+###
+
+PUT http://localhost:8080/article/adm/change_status?id=8a8a843a816c2be501816c2c914e0000
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzODUzNDYsImV4cCI6MTY1NTM4ODk0NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo1LCJyb2xlIjoiU1VQRVJfTU9ERVJBVE9SIn0.BYdEpnVbxI9_s3syDVjbYeBq8uzwxKh6nZYkBbDWnXo
+
+{
+  "status": "PUBLISHED"
+}
+
+###
+GET http://localhost:8080/article/public/last?size=2
+
+###
+GET http://localhost:8080/article/public?key=article_type_nameEn&limit=3

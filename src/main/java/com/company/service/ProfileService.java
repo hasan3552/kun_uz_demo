@@ -94,4 +94,14 @@ public class ProfileService {
 
         return profileDTOS;
     }
+
+    public ProfileDTO changeVisible(Integer profileId) {
+
+        ProfileEntity entity = get(profileId);
+        entity.setVisible(!entity.getVisible());
+
+        profileRepository.save(entity);
+
+        return getProfileDTOById(entity.getId());
+    }
 }

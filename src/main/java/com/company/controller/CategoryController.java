@@ -1,15 +1,18 @@
 package com.company.controller;
 
+import com.company.dto.JwtDTO;
 import com.company.dto.category.CategoryCreateDTO;
 import com.company.dto.category.CategoryDTO;
 import com.company.enums.ProfileRole;
 import com.company.service.CategoryService;
 import com.company.service.ProfileService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,9 +25,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestHeader("Authorization") String jwt,
+    public ResponseEntity<?> create(HttpServletRequest request,
                                     @RequestBody CategoryCreateDTO dto) {
-        JwtUtil.decode(jwt, ProfileRole.ADMIN);
+
+        HttpHeaderUtil.getId(request, ProfileRole.ADMIN);
+
+       // JwtUtil.decode(jwt, ProfileRole.ADMIN);
         CategoryDTO categoryDTO = categoryService.create(dto);
 
         return ResponseEntity.ok(categoryDTO);

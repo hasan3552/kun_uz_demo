@@ -2,14 +2,18 @@ package com.company.service;
 
 import com.company.dto.type.TypeCreateDTO;
 import com.company.dto.type.TypeDTO;
+import com.company.dto.type.TypeGetDTO;
 import com.company.entity.TypesEntity;
+import com.company.enums.Language;
 import com.company.exp.BadRequestException;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +33,6 @@ public class TypeService {
     }
     public TypeDTO getTypeDTO(TypesEntity typesEntity){
 
-        System.out.println(typesEntity);
         TypeDTO tyreDTO = new TypeDTO();
         tyreDTO.setCreatedDate(typesEntity.getCreatedDate());
         tyreDTO.setId(typesEntity.getId());
@@ -106,18 +109,75 @@ public class TypeService {
         return getTypeDTO(typesEntity);
     }
 
-    public List<TypeDTO> getAll() {
+    public List<TypeGetDTO> getAll(Language language) {
 
         Iterable<TypesEntity> iterable = typeRepository.findAll();
 
-        List<TypeDTO> allArticleType = new ArrayList<>();
+        List<TypeGetDTO> allArticleType = new ArrayList<>();
         iterable.forEach(typesEntity -> {
 
-            TypeDTO articleTypeDTO = getTypeDTO(typesEntity);
+            TypeGetDTO articleTypeDTO = getTypeGetDTO(typesEntity, language);
             allArticleType.add(articleTypeDTO);
         });
 
         return allArticleType;
+    }
+
+    private TypeGetDTO getTypeGetDTO(TypesEntity typesEntity, Language language) {
+
+        TypeGetDTO dto = new TypeGetDTO();
+
+        switch (language) {
+            case RU:
+                dto.setName(typesEntity.getNameRu());
+                break;
+            case EN:
+                dto.setName(typesEntity.getNameEn());
+                break;
+            case UZ:
+                dto.setName(typesEntity.getNameUz());
+                break;
+            default:
+                dto.setName(typesEntity.getNameUz());
+                break;
+        }
+
+        dto.setKey(typesEntity.getKey());
+        return dto;
+    }
+
+
+
+    ///88888888888888*****************************************88888888888888888888888888888
+    public PageImpl pagination(int page, int size) {
+        // page = 1
+    /*    Iterable<TypesEntity> all = typesRepository.pagination(size, size * (page - 1));
+        long totalAmount = typesRepository.countAllBy();*/
+//        long totalAmount = all.getTotalElements();
+//        int totalPages = all.getTotalPages();
+
+//        TypesPaginationDTO paginationDTO = new TypesPaginationDTO(totalAmount, dtoList);
+//        return paginationDTO;
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<TypesEntity> all = typeRepository.findAll(pageable);
+
+        List<TypesEntity> list = all.getContent();
+
+        List<TypeDTO> dtoList = new LinkedList<>();
+
+        list.forEach(typesEntity -> {
+            TypeDTO dto = new TypeDTO();
+            dto.setId(typesEntity.getId());
+            dto.setKey(typesEntity.getKey());
+            dto.setNameUz(typesEntity.getNameUz());
+            dto.setNameRu(typesEntity.getNameRu());
+            dto.setNameEn(typesEntity.getNameEn());
+            dtoList.add(dto);
+        });
+
+        return new PageImpl(dtoList,pageable, all.getTotalElements());
     }
 
 }

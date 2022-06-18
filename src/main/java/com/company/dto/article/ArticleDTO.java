@@ -8,6 +8,7 @@ import com.company.dto.type.TypeDTO;
 import com.company.entity.ProfileEntity;
 import com.company.enums.ArticleStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ArticleDTO {
 
     private String uuid;
@@ -39,5 +41,16 @@ public class ArticleDTO {
     private ArticleStatus status;
     private Boolean visible;
 
-
+    public ArticleDTO(String uuid, String title, String description, String content, Integer shareCount,
+                      Integer viewCount, LocalDateTime publicDate, ArticleStatus status, Boolean visible) {
+        this.uuid = uuid;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.shareCount = shareCount;
+        this.viewCount = viewCount;
+        this.publicDate = publicDate;
+        this.status = status;
+        this.visible = visible;
+    }
 }

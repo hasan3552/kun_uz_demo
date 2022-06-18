@@ -64,7 +64,7 @@ public class CommentService {
         return commentDTO;
     }
 
-    private CommentEntity get(Integer commentId) {
+    public CommentEntity get(Integer commentId) {
         return commentRepository.findById(commentId).orElseThrow(() -> {
             throw new ItemNotFoundException("Comment Not found");
         });

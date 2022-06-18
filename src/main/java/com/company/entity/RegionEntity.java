@@ -37,4 +37,7 @@ public class RegionEntity {
 
     @Column(nullable = false)
     Boolean visible = Boolean.TRUE;
+
+    @Column
+    private String image;
 }

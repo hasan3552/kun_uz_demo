@@ -10,4 +10,5 @@ public class TypeCreateDTO {
     private String nameUz;
     private String nameRu;
     private String nameEn;
+
 }

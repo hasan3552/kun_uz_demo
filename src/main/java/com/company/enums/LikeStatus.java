@@ -1,6 +1,6 @@
 package com.company.enums;
 
-public enum ArticleLikeStatus {
+public enum LikeStatus {
 
     LIKE,
     DISLIKE

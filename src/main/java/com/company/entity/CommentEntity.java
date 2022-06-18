@@ -1,6 +1,7 @@
 package com.company.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "comment")
+@NoArgsConstructor
 public class CommentEntity {
 
     @Id
@@ -40,4 +42,7 @@ public class CommentEntity {
     @Column(nullable = false)
     private Boolean visible = Boolean.TRUE;
 
+    public CommentEntity(Integer id) {
+        this.id = id;
+    }
 }

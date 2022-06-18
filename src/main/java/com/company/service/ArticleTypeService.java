@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.article.ArticleDTO;
 import com.company.dto.tag.TagDTO;
 import com.company.dto.type.TypeDTO;
 import com.company.entity.ArticleEntity;
@@ -11,6 +12,7 @@ import com.company.repository.ArticleTypeRepository;
 import com.company.repository.TagRepository;
 import com.company.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,14 +28,16 @@ public class ArticleTypeService {
     private TypeService typeService;
     @Autowired
     private TypeRepository typeRepository;
+//    @Autowired
+//    private ArticleService articleService;
 
-    public void create(ArticleEntity article, List<Integer> typeList){
+    public void create(ArticleEntity article, List<Integer> typeList) {
 
         typeList.forEach(integer -> {
             ArticleTypeEntity articleTypeEntity = new ArticleTypeEntity();
             articleTypeEntity.setArticle(article);
             Optional<TypesEntity> optional = typeRepository.findById(integer);
-            if (optional.isEmpty()){
+            if (optional.isEmpty()) {
                 throw new ItemNotFoundException("Type not found");
             }
             articleTypeEntity.setTypes(optional.get());
@@ -48,7 +52,7 @@ public class ArticleTypeService {
         List<TypeDTO> typeDTOList = new ArrayList<>();
 
         list.forEach(articleTypeEntity -> {
-           // TagDTO tagDTO = tagService.getTagDTO(articleTagEntity.getTag());
+            // TagDTO tagDTO = tagService.getTagDTO(articleTagEntity.getTag());
             TypeDTO typeDTO = typeService.getTypeDTO(articleTypeEntity.getTypes());
             typeDTOList.add(typeDTO);
         });
@@ -56,4 +60,6 @@ public class ArticleTypeService {
         return typeDTOList;
 
     }
+
+
 }

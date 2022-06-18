@@ -4,6 +4,7 @@ import com.company.enums.Language;
 import com.company.enums.ProfileRole;
 import com.company.enums.ProfileStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "profile")
+@NoArgsConstructor
 public class ProfileEntity {
 
     @Id
@@ -54,4 +56,8 @@ public class ProfileEntity {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "moderatorEntity")
 //    private List<ArticleEntity> articleList;
 
+
+    public ProfileEntity(Integer id) {
+        this.id = id;
+    }
 }

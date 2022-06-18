@@ -1,7 +1,9 @@
 package com.company.service;
 
+import com.company.dto.article.ArticleChangeStatusDTO;
 import com.company.dto.article.ArticleCreateDTO;
 import com.company.dto.article.ArticleDTO;
+import com.company.dto.article.ArticleShortDTO;
 import com.company.dto.category.CategoryDTO;
 import com.company.dto.region.RegionDTO;
 import com.company.entity.ArticleEntity;
@@ -11,9 +13,12 @@ import com.company.entity.RegionEntity;
 import com.company.enums.ArticleStatus;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.ArticleRepository;
+import com.company.repository.ArticleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +34,9 @@ public class ArticleService {
     private CategoryService categoryService;
     @Autowired
     private ArticleTypeService articleTypeService;
+
+    @Autowired
+    private ArticleTypeRepository articleTypeRepository;
     @Autowired
     private ArticleTagService articleTagService;
     @Autowired
@@ -113,9 +121,9 @@ public class ArticleService {
             throw new ItemNotFoundException("Article not fount");
         }
 
-        if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
-            throw new ItemNotFoundException("Article not fount");
-        }
+//        if (articleEntity.getStatus().equals(ArticleStatus.NOT_PUBLISHED)) {
+//            throw new ItemNotFoundException("Article not fount");
+//        }
 
         return getDTO(articleEntity);
     }
@@ -165,13 +173,15 @@ public class ArticleService {
 
         Optional<ArticleEntity> optional = articleRepository.findById(uuid);
 
-        if (optional.isEmpty()){
+        if (optional.isEmpty()) {
             throw new ItemNotFoundException("Article not fount");
         }
 
         ArticleEntity entity = optional.get();
 
-        getArticleEntity(entity,dto,profileId);
+        getArticleEntity(entity, dto, profileId);
+
+        articleRepository.save(entity);
 
         return getDTO(entity);
     }
@@ -181,4 +191,54 @@ public class ArticleService {
             throw new ItemNotFoundException("Article Not found");
         });
     }
+
+    public ArticleDTO changeStatus(ArticleChangeStatusDTO dto, String uuid, Integer profileId) {
+
+        ArticleEntity entity = get(uuid);
+
+        entity.setPublisher(profileService.get(profileId));
+        entity.setPublicDate(LocalDateTime.now());
+        entity.setStatus(dto.getStatus());
+
+        articleRepository.save(entity);
+        return getDTO(entity);
+    }
+
+
+    public List<ArticleDTO> getArticleDTOListByType(String key, Integer limit) {
+
+        List<ArticleEntity> list = articleRepository
+                .findTopLimitByArticleNative(key, limit);
+
+        List<ArticleDTO> dtos = new ArrayList<>();
+        list.forEach(entity -> {
+            System.out.println(entity);
+
+            dtos.add(new ArticleDTO(entity.getUuid(), entity.getTitle(), entity.getDescription(),
+                    entity.getContent(), entity.getShareCount(), entity.getViewCount(),
+                    entity.getPublicDate(), entity.getStatus(), entity.getVisible()));
+        });
+
+        return dtos;
+
+    }
+
+    public List<ArticleShortDTO> getArticleDTOListLast(Integer size) {
+
+        List<ArticleEntity> list = articleRepository
+                .findTopLimitByStatus(ArticleStatus.PUBLISHED.name(), size);
+
+        List<ArticleShortDTO> dtos = new ArrayList<>();
+
+        list.forEach(entity -> {
+            ArticleShortDTO dto = new ArticleShortDTO();
+            dto.setPublicDate(entity.getPublicDate());
+            dto.setTitle(entity.getTitle());
+            dto.setUuid(entity.getUuid());
+            dtos.add(dto);
+        });
+
+        return dtos;
+    }
+
 }

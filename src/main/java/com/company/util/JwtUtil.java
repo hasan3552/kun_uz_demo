@@ -1,5 +1,6 @@
 package com.company.util;
 
+import com.company.dto.JwtDTO;
 import com.company.enums.ProfileRole;
 import com.company.exp.NoPermissionException;
 import io.jsonwebtoken.Claims;
@@ -46,5 +47,17 @@ public class JwtUtil {
         }
         return id;
     }
+
+    public static JwtDTO decodeJwtDTO(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+        Integer id = (Integer) claims.get("id");
+        String role = (String) claims.get("role");
+
+        return new JwtDTO(id, ProfileRole.valueOf(role));
+    }
+
 
 }

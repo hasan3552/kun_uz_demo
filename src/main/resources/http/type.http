@@ -1,6 +1,6 @@
-POST http://localhost:8080/type
+POST http://localhost:8080/type/adm
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTA4NzEsImV4cCI6MTY1NDk1NDQ3MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.KoBlaTF3c85Du0JOxYMM76Qg3-t9HGdvFn2DRy-RgXU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTA4NzEsImV4cCI6MTY1NDk1NDQ3MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.KoBlaTF3c85Du0JOxYMM76Qg3-t9HGdvFn2DRy-RgXU
 
 {
   "nameUz": "nameUz2",
@@ -9,5 +9,17 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTA4NzEsImV4cCI6MTY1NDk1NDQ3
 }
 
 ###
-GET http://localhost:8080/type/list
+GET http://localhost:8080/type/RU
+
+###
+GET http://localhost:8080/type?lang=UZ
 Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTA4NzEsImV4cCI6MTY1NDk1NDQ3MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.KoBlaTF3c85Du0JOxYMM76Qg3-t9HGdvFn2DRy-RgXU
+
+###
+GET http://localhost:8080/type
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTA4NzEsImV4cCI6MTY1NDk1NDQ3MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.KoBlaTF3c85Du0JOxYMM76Qg3-t9HGdvFn2DRy-RgXU
+Accept-Language: UZ
+
+
+###
+GET http://localhost:8080/type/pagination?page=0&size=5

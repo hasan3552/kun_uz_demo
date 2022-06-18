@@ -1,0 +1,18 @@
+h/w
+    HttpServletRequest
+    In DTO use only DTO
+    9
+    10
+
+  Article(4,5,6,7)
+
+      4. Change status by id (PUBLISHER) (publish,not_publish)
+      5. Get Last 5 Article By Types  ordered_by_created_date
+          (Berilgan types bo'yicha oxirgi 5ta pubished bo'lgan article ni return qiladi.)
+          ArticleShortInfo
+      6. Get Last 3 Article By Types  ordered_by_created_date
+          (Berilgan types bo'yicha oxirgi 3ta pubished bo'lgan article ni return qiladi.)
+           ArticleShortInfo
+      7. Get Last 8 Added articles witch id not included in given list.
+          ([1,2,3,])
+          ArticleShortInfo
