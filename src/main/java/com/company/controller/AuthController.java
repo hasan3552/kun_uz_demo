@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.VerificationDTO;
 import com.company.dto.profile.AuthDTO;
 import com.company.dto.profile.ProfileDTO;
 import com.company.dto.profile.RegistrationDTO;
@@ -24,9 +25,15 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<ProfileDTO> registration(@RequestBody RegistrationDTO dto) {
-        ProfileDTO profileDTO = authService.registration(dto);
+    public ResponseEntity<String> registration(@RequestBody RegistrationDTO dto) {
+        String profileDTO = authService.registration(dto);
         return ResponseEntity.ok(profileDTO);
+    }
+
+    @PostMapping("/verification")
+    public ResponseEntity<String> verification(@RequestBody VerificationDTO dto) {
+        String response = authService.verification(dto);
+        return ResponseEntity.ok(response);
     }
 
 }

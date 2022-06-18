@@ -20,6 +20,8 @@ public class ArticleLikeController {
     @Autowired
     private ArticleLikeService articleLikeService;
 
+//     16. Article LikeCreate (ANY)
+//        (article_id)
     @PostMapping("/like")
     public ResponseEntity<?> like(@RequestBody ArticleLikeCreateDTO dto,
                                   HttpServletRequest request){
@@ -29,6 +31,8 @@ public class ArticleLikeController {
         return ResponseEntity.ok("success");
     }
 
+//    17. Article DisLikeCreate (ANY)
+//            (article_id)
     @PostMapping("/dislike")
     public ResponseEntity<?> dislike(@RequestBody ArticleLikeCreateDTO dto,
                                   HttpServletRequest request){
@@ -39,6 +43,8 @@ public class ArticleLikeController {
         return ResponseEntity.ok().build();
     }
 
+//      18. Article Like Remove (ANY)
+//        (article_id)
     @PostMapping("/remove")
     public ResponseEntity<?> remove(@RequestBody ArticleLikeCreateDTO dto,
                                   HttpServletRequest request){

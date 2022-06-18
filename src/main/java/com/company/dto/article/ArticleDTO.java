@@ -33,6 +33,10 @@ public class ArticleDTO {
 
     private Integer shareCount;
     private Integer viewCount;
+
+    private Integer likeCount;
+    private Integer dislikeCount;
+
     private LocalDateTime createdDate;
     private LocalDateTime publicDate;
 

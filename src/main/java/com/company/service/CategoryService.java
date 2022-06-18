@@ -3,6 +3,7 @@ package com.company.service;
 import com.company.dto.category.CategoryCreateDTO;
 import com.company.dto.category.CategoryDTO;
 import com.company.entity.CategoryEntity;
+import com.company.enums.CategoryStatus;
 import com.company.exp.BadRequestException;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.CategoryRepository;
@@ -122,6 +123,16 @@ public class CategoryService {
         return categoryRepository.findById(id).orElseThrow(() -> {
             throw new ItemNotFoundException("Category not found");
         });
+    }
+
+    public CategoryEntity getByKey(String categoryKey) {
+
+        return categoryRepository
+                .findByKeyAndStatusAndVisible(categoryKey, CategoryStatus.ACTIVE, Boolean.TRUE)
+                .orElseThrow(() -> {
+            throw new ItemNotFoundException("Category not found");
+        });
+
     }
 
 //    public CategoryDTO getCategoryDTO(CategoryEntity entity){

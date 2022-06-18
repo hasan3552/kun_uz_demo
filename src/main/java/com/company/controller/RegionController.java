@@ -75,6 +75,8 @@ public class RegionController {
         return ResponseEntity.ok(list);
     }
 
+//     13. Get Article list by Region Key (Pagination)
+//    ArticleShortInfo
     @GetMapping("/pagination")
     public ResponseEntity<?> getAllRegionPagination(//@RequestHeader("Authorization") String jwt,
                                                     @RequestHeader(value = "Accept-Language", defaultValue = "UZ") Language language,

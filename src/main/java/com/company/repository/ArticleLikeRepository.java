@@ -3,6 +3,7 @@ package com.company.repository;
 import com.company.entity.ArticleEntity;
 import com.company.entity.ArticleLikeEntity;
 import com.company.entity.ProfileEntity;
+import com.company.enums.LikeStatus;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ArticleLikeRepository extends CrudRepository<ArticleLikeEntity, Integer> {
@@ -25,6 +27,14 @@ public interface ArticleLikeRepository extends CrudRepository<ArticleLikeEntity,
     void delete(String articleId, Integer profileId);
 
 
+    @Transactional
+    @Modifying
+    @Query(value = "\n" +
+            "select cast(sum(case when status = 'LIKE' then 1 else 0 end) as varchar) as like_count, " +
+            "       cast(sum(case when status = 'DISLIKE' then 1 else 0 end) as varchar) as dislike_count " +
+            "from article_like " +
+            "where article_like.article_id =:articleId", nativeQuery = true)
+    Map<String, Integer> countLikeDislike(@Param("articleId") String articleId);
 
 
 }

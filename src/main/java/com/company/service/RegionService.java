@@ -246,4 +246,10 @@ public class RegionService {
         return new PageImpl(dtoList,pageable, all.getTotalElements());
     }
 
+    public RegionEntity getByKey(String rKey) {
+
+        return regionRepository.findByKey(rKey).orElseThrow(() -> {
+            throw new ItemNotFoundException("Region not found");
+        });
+    }
 }

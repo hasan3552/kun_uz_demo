@@ -1,13 +1,18 @@
 package com.company.controller;
 
+import com.company.dto.attach.AttachDTO;
 import com.company.dto.profile.ProfileDTO;
 import com.company.enums.ProfileRole;
+import com.company.service.AttachService;
 import com.company.service.ProfileService;
+import com.company.util.HttpHeaderUtil;
 import com.company.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -15,6 +20,8 @@ import java.util.List;
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private AttachService attachService;
 
     @PostMapping("")
     public ResponseEntity<ProfileDTO> create(@RequestBody ProfileDTO dto,
@@ -72,6 +79,15 @@ public class ProfileController {
 
         return ResponseEntity.ok(profileDTO);
 
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file,
+                                    HttpServletRequest request) {
+
+        Integer profileId = HttpHeaderUtil.getId(request);
+        AttachDTO dto = attachService.saveToProfile(file, profileId);
+        return ResponseEntity.ok().body(dto);
     }
 
     // filter**********

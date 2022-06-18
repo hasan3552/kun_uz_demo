@@ -30,3 +30,16 @@ Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NzgwNjEsImV4cCI6MTY1NDc4MTY2
   "name": "ToshmatJon",
   "surname": "Toshov"
 }
+
+
+###
+
+POST http://localhost:8080/profile/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYwNTEzOTQsImV4cCI6MTY1NjEzNzc5NCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.OmAUHWPl5mwOqdI_x9XSpn6U0SIPDywrmF-aCfxCaGk
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="pictory.jfif"
+
+< C:\Users\user\Desktop\pictory.jfif

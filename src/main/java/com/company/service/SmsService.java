@@ -1,0 +1,111 @@
+package com.company.service;
+
+import com.company.dto.SmsRequestDTO;
+import com.company.dto.SmsResponseDTO;
+import com.company.dto.attach.AttachDTO;
+import com.company.entity.AttachEntity;
+import com.company.entity.SmsEntity;
+import com.company.enums.ProfileStatus;
+import com.company.repository.SmsRepository;
+import com.company.util.RandomUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+
+@Service
+public class SmsService {
+
+    @Value("${sms.url}")
+    private String smsUrl;
+
+    @Value("${sms.key}")
+    private String smsKey;
+    @Autowired
+    private SmsRepository smsRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+
+    public void sendRegistrationSms(String phone) {
+        String code = RandomUtil.getRandomSmsCode();
+        String message = "Kun.uz Test partali uchun\n registratsiya kodi: " + code;
+
+        //   SmsResponseDTO responseDTO = send(phone, message);
+
+        SmsEntity entity = new SmsEntity();
+        entity.setPhone(phone);
+        entity.setCode(code);
+        //  entity.setStatus(responseDTO.getSuccess());
+        entity.setStatus(Boolean.FALSE);
+
+        System.out.println(code);
+        System.out.println(phone);
+
+        smsRepository.save(entity);
+    }
+
+    public boolean verifySms(String phone, String code) {
+        Optional<SmsEntity> optional = smsRepository.findTopByPhoneOrderByCreatedDateDesc(phone);
+        if (optional.isEmpty()) {
+            return false;
+        }
+        SmsEntity sms = optional.get();
+        LocalDateTime validDate = sms.getCreatedDate().plusMinutes(1);
+
+        return sms.getCode().equals(code) && validDate.isAfter(LocalDateTime.now());
+    }
+
+    private SmsResponseDTO send(String phone, String message) {
+        SmsRequestDTO requestDTO = new SmsRequestDTO();
+        requestDTO.setKey(smsKey);
+        requestDTO.setPhone(phone);
+        requestDTO.setMessage(message);
+        System.out.println("Sms Request: message " + message);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<SmsRequestDTO> entity = new HttpEntity<SmsRequestDTO>(requestDTO, headers);
+
+        //RestTemplate restTemplate = new RestTemplate();
+        SmsResponseDTO response = restTemplate.postForObject(smsUrl, entity, SmsResponseDTO.class);
+        System.out.println("Sms Response  " + response);
+        return response;
+    }
+
+
+    public PageImpl pagination(Integer page, Integer size) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<SmsEntity> all = smsRepository.findAll(pageable);
+
+        List<SmsEntity> list = all.getContent();
+
+        List<SmsRequestDTO> dtoList = new LinkedList<>();
+
+        list.forEach(sms -> {
+            SmsRequestDTO dto = new SmsRequestDTO();
+            dto.setId(sms.getId());
+            dto.setKey(smsKey);
+            dto.setMessage(sms.getCode());
+            dto.setPhone(sms.getPhone());
+            dtoList.add(dto);
+        });
+
+        return new PageImpl(dtoList, pageable, all.getTotalElements());
+    }
+}

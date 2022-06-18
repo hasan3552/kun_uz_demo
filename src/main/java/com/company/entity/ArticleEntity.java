@@ -46,9 +46,9 @@ public class ArticleEntity {
     @Column(name = "public_date")
     private LocalDateTime publicDate;
 
-//    @JoinColumn(name = "image_id", nullable = false)
-//    @OneToOne(targetEntity = AttachEntity.class, fetch = FetchType.LAZY)
-//    private AttachEntity attachEntity;
+    @JoinColumn(name = "image_id")
+    @OneToOne(targetEntity = AttachEntity.class, fetch = FetchType.LAZY)
+    private AttachEntity image;
 
     @JoinColumn(name = "region_id", nullable = false)
     @ManyToOne(targetEntity = RegionEntity.class, fetch = FetchType.LAZY)
@@ -75,5 +75,12 @@ public class ArticleEntity {
 
     public ArticleEntity(String uuid) {
         this.uuid = uuid;
+    }
+
+    public ArticleEntity(String uuid, String title, String description, LocalDateTime publicDate) {
+        this.uuid = uuid;
+        this.title = title;
+        this.description = description;
+        this.publicDate = publicDate;
     }
 }

@@ -104,4 +104,8 @@ public class ProfileService {
 
         return getProfileDTOById(entity.getId());
     }
+
+    public void save(ProfileEntity profile) {
+        profileRepository.save(profile);
+    }
 }

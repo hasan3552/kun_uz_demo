@@ -17,4 +17,5 @@ public interface TypeRepository extends PagingAndSortingRepository<TypesEntity,I
     long countAllBy();
 
 
+    Optional<TypesEntity> findByKey(String key);
 }

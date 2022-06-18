@@ -31,8 +31,12 @@ public class ProfileEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String email;
+
+    @Column(unique = true)
+    private String phone;
+
 
     @Column
     private LocalDateTime createdDate = LocalDateTime.now();
@@ -56,6 +60,9 @@ public class ProfileEntity {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "moderatorEntity")
 //    private List<ArticleEntity> articleList;
 
+    @JoinColumn(name = "photo_id")
+    @OneToOne(targetEntity = AttachEntity.class,fetch = FetchType.LAZY)
+    private AttachEntity photo;
 
     public ProfileEntity(Integer id) {
         this.id = id;

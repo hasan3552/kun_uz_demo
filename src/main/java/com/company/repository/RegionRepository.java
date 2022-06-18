@@ -14,4 +14,6 @@ public interface RegionRepository extends PagingAndSortingRepository<RegionEntit
 
     List<RegionEntity> findAllByVisible(Boolean visible);
 
+    Optional<RegionEntity> findByKey(String key);
+
 }

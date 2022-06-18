@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -54,5 +55,10 @@ public class ArticleLikeService {
             articleLikeRepository.delete(articleLikeEntity);
         });*/
         articleLikeRepository.delete(articleId, pId);
+    }
+
+    public Map<String, Integer> countLikeDislike(String articleId){
+
+        return articleLikeRepository.countLikeDislike(articleId);
     }
 }

@@ -1,6 +1,6 @@
 ******************* KUN_UZ *******************
 1. Profile
-    id,name,surname,email/phone,password,status,role,visible,created_date
+    id,name,surname,email/phone,password,status,role,visible,created_date,photo_id
 2. Types
     id,key,name_uz, name_ru, name_en,visible,created_date
      (Asosiy,Muharrir tanlovi,Dolzarb, Maqola,
@@ -39,7 +39,9 @@
     3. Update Profile Detail (ANY)
     4. Profile List (ADMIN) (Pagination)
     5. Delete Profile By Id (ADMIN)
-    6. Filter (name,surname,phone,role,created_date_from,created_date_to)
+    6. Update Photo (ANY) (Murojat qilgan odamni rasmini upda qilish)   (remove old image)
+           photo_id
+    7. Filter (name,surname,phone,role,created_date_from,created_date_to)
 3. ArticleType
     1. Create  (ADMIN)
         (key,name_uz, name_ru, name_en)
@@ -74,7 +76,7 @@
 6. Article
     1. CREATE (Moderator) status(NotPublished)
         (title,description,content,shared_count,image_id, region_id,category_id)
-    2. Update (Moderator (status to not publish))
+    2. Update (Moderator (status to not publish)) (remove old image)
         (title,description,content,shared_count,image_id, region_id,category_id)
     3. Delete Article (MODERATOR)
     4. Change status by id (PUBLISHER) (publish,not_publish)
@@ -84,10 +86,10 @@
     6. Get Last 3 Article By Types  ordered_by_created_date
         (Berilgan types bo'yicha oxirgi 3ta pubished bo'lgan article ni return qiladi.)
          ArticleShortInfo
-    7. Get Last 8 Added articles witch id not included in given list.
+    7. Get Last 8  Articles witch id not included in given list.
         ([1,2,3,])
         ArticleShortInfo
-    8. Get Article By Id
+    8. Get Article By Id And Lang
         ArticleFullInfo
     9. Get Last 4 Article By Types and except given article id.
         ArticleShortInfo
@@ -165,6 +167,17 @@ h/w
 
   Article(4,5,6,7)
 
+
+h/w
+ attach (delete) ADMIN
+ attach (pagination) ADMIN
+ RestTemplate bean
+  sms Controller
+    sms Pagination (ADMIN)
+    sms limit (1 minut 4 ta)
+
+Profile photo
+Article image
 
 
 

@@ -180,4 +180,10 @@ public class TypeService {
         return new PageImpl(dtoList,pageable, all.getTotalElements());
     }
 
+    public TypesEntity getByKey(String tKey) {
+
+        return typeRepository.findByKey(tKey).orElseThrow(() -> {
+            throw new ItemNotFoundException("Type not found");
+        });
+    }
 }

@@ -17,6 +17,10 @@ public class SecuredFilterConfig {
         bean.setFilter(jwtFilter);
 
         bean.addUrlPatterns("/profile/*");
+        bean.addUrlPatterns("/attach/upload");
+        bean.addUrlPatterns("/attach/deleted");
+        bean.addUrlPatterns("/attach/pagination");
+        bean.addUrlPatterns("/sms/pagination");
         bean.addUrlPatterns("/type/adm/*");
         bean.addUrlPatterns("/article_like/*");
         bean.addUrlPatterns("/comment_like/*");

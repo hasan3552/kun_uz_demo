@@ -12,8 +12,8 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-"email": "alish",
-"password": "123"
+  "email": "alish",
+  "password": "123"
 }
 
 
@@ -56,6 +56,17 @@ Content-Type: application/json
 {
   "name": "user1",
   "surname": "user1",
-  "email": "234",
-  "password": "123"
+  "email": "1212",
+  "password": "434343",
+  "phone": "123454321"
+}
+
+###
+
+POST http://localhost:8080/auth/verification
+Content-Type: application/json
+
+{
+  "phone": "123454321",
+  "code": "58519"
 }

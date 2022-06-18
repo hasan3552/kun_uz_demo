@@ -1,17 +1,17 @@
 package com.company.entity;
 
-import com.company.enums.TagStatus;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "attach")
 public class AttachEntity {
@@ -22,19 +22,23 @@ public class AttachEntity {
     @Column(name = "uuid", unique = true)
     private String uuid;
 
-    @Column(nullable = false, name = "created_date")
-    private LocalDateTime createdDate = LocalDateTime.now();
+    @Column(nullable = false)
+    private String originalName;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "extension", nullable = false)
+    private String extension;
+
+    @Column(nullable = false)
+    private Long size;
 
     @Column(name = "path", nullable = false)
     private String path;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, name = "created_date")
+    private LocalDateTime createdDate = LocalDateTime.now();
 
+    @JoinColumn(name = "article_id")
+    @ManyToOne(targetEntity = ArticleEntity.class,fetch = FetchType.LAZY)
+    private ArticleEntity article;
 
-    @Column(nullable = false)
-    Boolean visible = Boolean.TRUE;
 }

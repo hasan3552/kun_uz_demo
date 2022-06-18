@@ -35,3 +35,32 @@ GET http://localhost:8080/article/public/last?size=2
 
 ###
 GET http://localhost:8080/article/public?key=article_type_nameEn&limit=3
+
+###
+GET http://localhost:8080/article/category?key=category_categoryEn
+
+###
+GET http://localhost:8080/article/most_read?amount=2
+
+###
+PUT http://localhost:8080/article/view
+Content-Type: application/json
+
+{
+  "uuid": "8a8a843a816c296c01816c2b01300000"
+}
+
+###
+GET http://localhost:8080/article/region_type?t_key=1&r_key=1
+
+###
+
+POST http://localhost:8080/article/adm/upload?articleId=8a8a83eb815b950401815b967f680000
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYwNTEzOTQsImV4cCI6MTY1NjEzNzc5NCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.OmAUHWPl5mwOqdI_x9XSpn6U0SIPDywrmF-aCfxCaGk
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="pictory.jfif"
+
+< C:\Users\user\Desktop\pictory.jfif
