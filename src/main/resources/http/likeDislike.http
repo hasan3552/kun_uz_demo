@@ -7,9 +7,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzMDM3NDYsImV4cCI6MTY1N
 }
 
 ###
-POST http://localhost:8080/article_like/dislike
+POST http://localhost:8082/article_like/dislike
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzMDM3NDYsImV4cCI6MTY1NTMwNzM0NiwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo1LCJyb2xlIjoiVVNFUiJ9.lSG0HYQemcNGCDkOgv5ujUrz1Q-lW1_rQ294yT1kyo0
+Authorization: Basic hasan6453552@gmail.com 123
 
 {
   "articleId": "4028b6cd8152cefe018152d6408e0000"

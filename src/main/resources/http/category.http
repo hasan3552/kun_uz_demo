@@ -1,6 +1,6 @@
-POST http://localhost:8080/category
+POST http://localhost:8082/category/adm
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ5NTE5MTAsImV4cCI6MTY1NDk1NTUxMCwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.6ahFvUjhGPYg6qeOSiQdnIYue9KbxYO_DB4xHhEfBb4
+Authorization: Basic 1234 123
 
 {
   "nameUz": "categoryUz2",

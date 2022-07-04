@@ -9,7 +9,10 @@ import com.company.entity.RegionEntity;
 import com.company.enums.ProfileRole;
 import com.company.exp.ItemNotFoundException;
 import com.company.exp.NoPermissionException;
+import com.company.repository.ArticleRepository;
 import com.company.repository.AttachRepository;
+import com.company.repository.ProfileRepository;
+import com.company.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -30,6 +33,7 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AttachService {
@@ -39,22 +43,40 @@ public class AttachService {
 
     @Value("${server.url}")
     private String serverUrl;
+    //    @Autowired
+//    private ProfileService profileService;
+//    @Autowired
+//    private ArticleService articleService;
     @Autowired
-    private ProfileService profileService;
-    @Autowired
-    private ArticleService articleService;
+    private ArticleRepository articleRepository;
     @Autowired
     private AttachRepository attachRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public AttachDTO saveToSystem(MultipartFile file, Integer profileId, String articleId) {
 
-        ProfileEntity entity = profileService.get(profileId);
+        //  ProfileEntity entity = profileService.get(profileId);
+
+        Optional<ProfileEntity> optional = profileRepository.findById(profileId);
+
+        if (optional.isEmpty()) {
+            throw new NoPermissionException("No user");
+
+        }
+        ProfileEntity entity = optional.get();
         if (entity.getRole().equals(ProfileRole.USER)) {
             throw new NoPermissionException("No access");
         }
 
-        ArticleEntity article = articleService.get(articleId);
+        //    ArticleEntity article = articleService.get(articleId);
+        Optional<ArticleEntity> optional1 = articleRepository.findById(articleId);
 
+        if (optional1.isEmpty()) {
+            throw new NoPermissionException("No article");
+
+        }
+        ArticleEntity article = optional1.get();
         try {
 
             File folder = new File(attachFolder + getYmDString());
@@ -79,7 +101,58 @@ public class AttachService {
             Files.write(path, bytes);
 
             AttachDTO dto = new AttachDTO();
-            dto.setUrl(serverUrl +"attach/open?fileId="+ entity.getId());
+            dto.setUrl(serverUrl + "attach/open?fileId=" + entity.getId());
+            return dto;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public AttachDTO saveToSystemForProfile(MultipartFile file, Integer profileId) {
+
+        //  ProfileEntity entity = profileService.get(profileId);
+
+        Optional<ProfileEntity> optional = profileRepository.findById(profileId);
+
+        if (optional.isEmpty()) {
+            throw new NoPermissionException("User not found");
+
+        }
+        ProfileEntity profile = optional.get();
+
+        try {
+
+            File folder = new File(attachFolder + getYmDString());
+
+            AttachEntity attach = new AttachEntity();
+//            split[0], split[1], file.getSize(), folder.getPath(), article
+            attach.setExtension(getExtension(file.getOriginalFilename()));
+            attach.setOriginalName(file.getOriginalFilename()
+                    .replace(("." + getExtension(file.getOriginalFilename())), ""));
+            attach.setSize(file.getSize());
+            attach.setPath(getYmDString());
+            attachRepository.save(attach);
+
+            if (profile.getPhoto() != null) {
+                Files.delete(Path.of(attachFolder + profile.getPhoto().getPath() + "/" + profile.getPhoto().getUuid() + "." + profile.getPhoto().getExtension()));
+            }
+
+            profile.setPhoto(attach);
+            profileRepository.save(profile);
+
+            String fileName = attach.getUuid() + "." + getExtension(file.getOriginalFilename());
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(attachFolder + getYmDString() + "/" + fileName);
+            Files.write(path, bytes);
+
+            AttachDTO dto = new AttachDTO();
+            dto.setUrl(serverUrl + "attach/open?fileId=" + attach.getUuid());
             return dto;
 
         } catch (IOException e) {
@@ -201,24 +274,38 @@ public class AttachService {
         list.forEach(attach -> {
             AttachDTO dto = new AttachDTO();
             dto.setId(attach.getUuid());
-            dto.setUrl(serverUrl +"attach/open?fileId="+ attach.getUuid());
+            dto.setUrl(serverUrl + "attach/open?fileId=" + attach.getUuid());
             dto.setOriginalName(attach.getOriginalName());
             dto.setPath(attach.getPath());
             dtoList.add(dto);
         });
 
-        return new PageImpl(dtoList,pageable, all.getTotalElements());
+        return new PageImpl(dtoList, pageable, all.getTotalElements());
     }
 
-    public AttachDTO saveToArticle(MultipartFile file, Integer profileId, String articleId) {
+    public AttachDTO saveToArticle(MultipartFile file, String articleId) {
 
 
-        ProfileEntity entity = profileService.get(profileId);
-        if (entity.getRole().equals(ProfileRole.USER)) {
-            throw new NoPermissionException("No access");
+//        Optional<ProfileEntity> optional = profileRepository.findById(profileId);
+//
+//        if (optional.isEmpty()) {
+//            throw new NoPermissionException("No user");
+//
+//        }
+//        ProfileEntity entity = optional.get();
+//
+//        if (entity.getRole().equals(ProfileRole.USER)) {
+//            throw new NoPermissionException("No access");
+//        }
+
+        //  ArticleEntity article = articleService.get(articleId);
+        Optional<ArticleEntity> optional1 = articleRepository.findById(articleId);
+
+        if (optional1.isEmpty()) {
+            throw new NoPermissionException("No article");
+
         }
-
-        ArticleEntity article = articleService.get(articleId);
+        ArticleEntity article = optional1.get();
 
         try {
 
@@ -234,8 +321,15 @@ public class AttachService {
             attach.setPath(getYmDString());
             attachRepository.save(attach);
 
+            if (article.getImage() != null) {
+                AttachEntity image = article.getImage();
+
+                Files.delete(Path.of("attaches/" + image.getPath() + "/" + image.getUuid() + "." + image.getExtension()));
+                attachRepository.delete(image);
+            }
+
             article.setImage(attach);
-            articleService.save(article);
+            articleRepository.save(article);
 
             String fileName = attach.getUuid() + "." + getExtension(file.getOriginalFilename());
             if (!folder.exists()) {
@@ -247,7 +341,7 @@ public class AttachService {
             Files.write(path, bytes);
 
             AttachDTO dto = new AttachDTO();
-            dto.setUrl(serverUrl +"attach/open?fileId="+ attach.getUuid());
+            dto.setUrl(serverUrl + "attach/open?fileId=" + attach.getUuid());
             return dto;
 
         } catch (IOException e) {
@@ -256,10 +350,18 @@ public class AttachService {
         return null;
     }
 
-    public AttachDTO saveToProfile(MultipartFile file, Integer profileId) {
+    public AttachDTO saveToProfile(MultipartFile file) {
 
 
-        ProfileEntity profile = profileService.get(profileId);
+        //ProfileEntity profile = profileService.getProfile();
+
+        Optional<ProfileEntity> optional = profileRepository.findByEmail(SpringSecurityUtil.getCurrentUser().getUsername());
+
+        if (optional.isEmpty()) {
+            throw new NoPermissionException("No user");
+
+        }
+        ProfileEntity profile = optional.get();
 
         try {
 
@@ -275,8 +377,8 @@ public class AttachService {
             attachRepository.save(attach);
 
             profile.setPhoto(attach);
-            profileService.save(profile);
-            
+            profileRepository.save(profile);
+
             String fileName = attach.getUuid() + "." + getExtension(file.getOriginalFilename());
             if (!folder.exists()) {
                 folder.mkdirs();
@@ -287,7 +389,7 @@ public class AttachService {
             Files.write(path, bytes);
 
             AttachDTO dto = new AttachDTO();
-            dto.setUrl(serverUrl +"attach/open?fileId="+ attach.getUuid());
+            dto.setUrl(serverUrl + "attach/open?fileId=" + attach.getUuid());
             return dto;
 
         } catch (IOException e) {

@@ -1,0 +1,2 @@
+GET http://localhost:8080/sms/pagination?page=1&size=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYwNjUzODEsImV4cCI6MTY1NjE1MTc4MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.FkUPvHO40IwBz7ChiGPTNUbt7MY03OikX2iSFPwAvyU

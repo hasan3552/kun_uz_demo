@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### MODERATOR auht
-POST http://localhost:8080/auth/login
+POST http://localhost:8082/auth/login
 Content-Type: application/json
 
 {
@@ -28,37 +28,47 @@ Content-Type: application/json
   "password": "123"
 }
 
-###
-POST http://localhost:8080/auth/registration
+### security
+POST http://localhost:8082/auth/registration
 Content-Type: application/json
 
 {
   "name": "admin",
   "surname": "adminjon",
-  "email": "1234",
+  "email": "hasan6453552@gmail1.com",
+  "phone": "1234121221",
   "password": "123"
 }
 
+###Security
+POST http://localhost:8082/auth/login
+Content-Type: application/json
+
+{
+  "email": "hasan6453552@gmail1.com",
+  "password": "123"
+}
 ###SUER_MODERATOR
 
 POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-  "email": "234",
-  "password": "123"
+"email": "234",
+"password": "123"
 }
 
+
 ###
-POST http://localhost:8080/auth/registration
+POST http://localhost:8082/auth/registration
 Content-Type: application/json
 
 {
   "name": "user1",
   "surname": "user1",
-  "email": "1212",
-  "password": "434343",
-  "phone": "123454321"
+  "email": "alis12h.com",
+  "password": "434",
+  "phone": "212112"
 }
 
 ###
@@ -70,3 +80,9 @@ Content-Type: application/json
   "phone": "123454321",
   "code": "58519"
 }
+
+###
+GET http://localhost:8080/auth/email/verification/29
+
+###
+POST http://localhost:8080/auth/resend/email/29

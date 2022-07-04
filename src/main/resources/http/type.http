@@ -23,3 +23,8 @@ Accept-Language: UZ
 
 ###
 GET http://localhost:8080/type/pagination?page=0&size=5
+
+
+###
+GET http://localhost:8082/type/open/UZ
+

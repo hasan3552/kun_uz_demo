@@ -11,6 +11,7 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 
 @Getter
@@ -23,12 +24,15 @@ public class ProfileDTO {
     private String name;
     private String surname;
     private String password;
+    @Email(message = "Email should be valid", regexp = "[a-zA-Z]+[0-9]+@[a-z]+\\.[a-zA-Z]+")
     private String email;
     private LocalDateTime createdDate;
     private Boolean visible;
     private ProfileStatus status;
     private ProfileRole role;
     private Language language;
+
+    private String photoId;
 
     private String jwt;
 

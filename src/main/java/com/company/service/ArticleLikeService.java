@@ -20,13 +20,17 @@ public class ArticleLikeService {
     private ArticleLikeRepository articleLikeRepository;
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private ProfileService profileService;
 
-    public void articleLike(String articleId, Integer pId) {
-        likeDislike(articleId, pId, LikeStatus.LIKE);
+    public void articleLike(String articleId) {
+        ProfileEntity profile = profileService.getProfile();
+        likeDislike(articleId, profile.getId(), LikeStatus.LIKE);
     }
 
-    public void articleDisLike(String articleId, Integer pId) {
-        likeDislike(articleId, pId, LikeStatus.DISLIKE);
+    public void articleDisLike(String articleId) {
+        ProfileEntity profile = profileService.getProfile();
+        likeDislike(articleId, profile.getId(), LikeStatus.DISLIKE);
     }
 
     private void likeDislike(String articleId, Integer pId, LikeStatus status) {
@@ -49,12 +53,13 @@ public class ArticleLikeService {
         articleLikeRepository.save(like);
     }
 
-    public void removeLike(String articleId, Integer pId) {
+    public void removeLike(String articleId) {
        /* Optional<ArticleLikeEntity> optional = articleLikeRepository.findExists(articleId, pId);
         optional.ifPresent(articleLikeEntity -> {
             articleLikeRepository.delete(articleLikeEntity);
         });*/
-        articleLikeRepository.delete(articleId, pId);
+        ProfileEntity profile = profileService.getProfile();
+        articleLikeRepository.delete(articleId, profile.getId());
     }
 
     public Map<String, Integer> countLikeDislike(String articleId){

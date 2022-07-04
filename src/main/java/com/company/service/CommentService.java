@@ -24,12 +24,12 @@ public class CommentService {
     @Autowired
     private ProfileService profileService;
 
-    public CommentDTO create(CommentCreateDTO dto, Integer profileId) {
+    public CommentDTO create(CommentCreateDTO dto) {
 
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setContent(dto.getContent());
 
-        ProfileEntity profileEntity = profileService.get(profileId);
+        ProfileEntity profileEntity = profileService.getProfile();
         ArticleEntity articleEntity = articleService.get(dto.getArticleId());
 
         if (dto.getCommentId() != null) {
@@ -70,11 +70,11 @@ public class CommentService {
         });
     }
 
-    public CommentDTO update(CommentUpdateDTO dto, Integer commentId, Integer profileId) {
+    public CommentDTO update(CommentUpdateDTO dto, Integer commentId) {
 
         CommentEntity commentEntity = get(commentId);
 
-        ProfileEntity entity = profileService.get(profileId);
+        ProfileEntity entity = profileService.getProfile();
         if (entity.getRole().equals(ProfileRole.USER) &&
                 !commentEntity.getProfileEntity().getId().equals(entity.getId())){
             throw new ItemNotFoundException("NO ACCESS");
@@ -89,11 +89,11 @@ public class CommentService {
         return getDTO(commentEntity);
     }
 
-    public CommentDTO changeVisible(Integer profileId, Integer commentId) {
+    public CommentDTO changeVisible( Integer commentId) {
 
         CommentEntity commentEntity = get(commentId);
 
-        ProfileEntity entity = profileService.get(profileId);
+        ProfileEntity entity = profileService.getProfile();
         if (entity.getRole().equals(ProfileRole.USER) &&
                 !commentEntity.getProfileEntity().getId().equals(entity.getId())){
             throw new ItemNotFoundException("NO ACCESS");

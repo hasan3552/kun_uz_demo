@@ -22,12 +22,14 @@ public class CommentLikeService {
     @Autowired
     private ProfileService profileService;
 
-    public void commentLike(Integer commentId, Integer pId) {
-        likeDislike(commentId, pId, LikeStatus.LIKE);
+    public void commentLike(Integer commentId) {
+        ProfileEntity profile = profileService.getProfile();
+        likeDislike(commentId, profile.getId(), LikeStatus.LIKE);
     }
 
-    public void commentDisLike(Integer commentId, Integer pId) {
-        likeDislike(commentId, pId, LikeStatus.DISLIKE);
+    public void commentDisLike(Integer commentId) {
+        ProfileEntity profile = profileService.getProfile();
+        likeDislike(commentId, profile.getId(), LikeStatus.DISLIKE);
     }
 
     private void likeDislike(Integer commentId, Integer pId, LikeStatus status) {
@@ -50,11 +52,12 @@ public class CommentLikeService {
         commentLikeRepository.save(like);
     }
 
-    public void removeLike(Integer commentId, Integer pId) {
+    public void removeLike(Integer commentId) {
        /* Optional<ArticleLikeEntity> optional = commentLikeRepository.findExists(commentId, pId);
         optional.ifPresent(commentLikeEntity -> {
             commentLikeRepository.delete(commentLikeEntity);
         });*/
-        commentLikeRepository.delete(commentId, pId);
+        ProfileEntity profile = profileService.getProfile();
+        commentLikeRepository.delete(commentId, profile.getId());
     }
 }

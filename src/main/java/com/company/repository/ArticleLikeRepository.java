@@ -27,11 +27,11 @@ public interface ArticleLikeRepository extends CrudRepository<ArticleLikeEntity,
     void delete(String articleId, Integer profileId);
 
 
-    @Transactional
-    @Modifying
+//    @Transactional
+//    @Modifying
     @Query(value = "\n" +
-            "select cast(sum(case when status = 'LIKE' then 1 else 0 end) as varchar) as like_count, " +
-            "       cast(sum(case when status = 'DISLIKE' then 1 else 0 end) as varchar) as dislike_count " +
+            "select cast(sum(case when status = 'LIKE' then 1 else 0 end) as int) as like_count, " +
+            "       cast(sum(case when status = 'DISLIKE' then 1 else 0 end) as int) as dislike_count " +
             "from article_like " +
             "where article_like.article_id =:articleId", nativeQuery = true)
     Map<String, Integer> countLikeDislike(@Param("articleId") String articleId);

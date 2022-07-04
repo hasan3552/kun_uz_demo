@@ -1,6 +1,6 @@
-POST http://localhost:8080/comment
+POST http://localhost:8082/comment
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUwMjcxNjksImV4cCI6MTY1NTAzMDc2OSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjo0LCJyb2xlIjoiVVNFUiJ9.7KLrExd7SS9-8TzLxc49me508Z23gYe7bUf_wjnB9Pc
+Authorization: Basic 111 123
 
 {
   "content": "content1",

@@ -1,15 +1,22 @@
-POST http://localhost:8080/article/adm
+POST http://localhost:8082/article/adm
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTUzNzcwNzksImV4cCI6MTY1NTM4MDY3OSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiTU9ERVJBVE9SIn0.EN3FwHaVgdKjys3uO9ZBbotzIQKQops5Tgh3m-D0n1U
+Authorization: Basic alish.com 434
 
 {
-  "title": "title3423",
+  "title": "titlewdaa",
   "description": "description432423",
   "content": "content432423",
   "regionId": 2,
   "categoryId": 3,
-  "typesList": [3,2],
-  "tagList": ["#nimadir","#ali","#vali"]
+  "typesList": [
+    3,
+    2
+  ],
+  "tagList": [
+    "#nimadir",
+    "#ali",
+    "#vali"
+  ]
 }
 
 ###
@@ -43,15 +50,12 @@ GET http://localhost:8080/article/category?key=category_categoryEn
 GET http://localhost:8080/article/most_read?amount=2
 
 ###
-PUT http://localhost:8080/article/view
-Content-Type: application/json
+PUT http://localhost:8082/article/public/view?uuid=8a8a843a816c296c01816c2b01300000
 
-{
-  "uuid": "8a8a843a816c296c01816c2b01300000"
-}
 
 ###
-GET http://localhost:8080/article/region_type?t_key=1&r_key=1
+GET http://localhost:8082/article/public/region_type?t_key=1&r_key=1
+Authorization: Basic hasan6453552@gmail1.com 123
 
 ###
 
@@ -64,3 +68,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYwNTEzOTQsImV4cCI6MTY1N
 Content-Disposition: form-data; name="file"; filename="pictory.jfif"
 
 < C:\Users\user\Desktop\pictory.jfif
+
+###
+GET http://localhost:8082/login
+
+###
+POST http://localhost:8082/article/public/filter
+Content-Type: application/json
+
+{
+  "description": "a"
+}
+
+###
+
+GET http://localhost:8082/article/public/most_read?amount=2
+
+###
+
+GET http://localhost:8082/article/public/last?size=5

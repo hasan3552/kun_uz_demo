@@ -41,4 +41,7 @@ public class AttachEntity {
     @ManyToOne(targetEntity = ArticleEntity.class,fetch = FetchType.LAZY)
     private ArticleEntity article;
 
+    public AttachEntity(String uuid) {
+        this.uuid = uuid;
+    }
 }

@@ -108,4 +108,9 @@ public class SmsService {
 
         return new PageImpl(dtoList, pageable, all.getTotalElements());
     }
+
+    public Long getSmsCount(String phone){
+
+        return smsRepository.countResend(phone);
+    }
 }

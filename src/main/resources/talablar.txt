@@ -179,6 +179,19 @@ h/w
 Profile photo
 Article image
 
+h/w
++ resend Email
++ EmailEntity Create
++ email verification time
++ email verification with jwt
++ email verification link with jwt
++ Email Pagination (ADMIN)
++ use your own Email
+ Profile filter
++ Article Filter
 
 
-
+h/w
+ 1. Validation (C,U) //  isValid
+ 2. Swagger (ALL)  //    swagger api uchun
+ 3. Log  (Controller + info),(Service ixtiyoriy-majburiy)  log faylga yozip boriw ucun

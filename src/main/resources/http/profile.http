@@ -1,6 +1,6 @@
-POST http://localhost:8080/profile
+POST http://localhost:8082/profile/adm
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTQ3NzgwNjEsImV4cCI6MTY1NDc4MTY2MSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoxLCJyb2xlIjoiQURNSU4ifQ.BH0f5GeFqHGe-UvUa4UrQuOWAg_4waeZByyaqFKpdlo
+Authorization: Basic 1234 123
 
 {
   "name": "Ali",
@@ -43,3 +43,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYwNTEzOTQsImV4cCI6MTY1N
 Content-Disposition: form-data; name="file"; filename="pictory.jfif"
 
 < C:\Users\user\Desktop\pictory.jfif
+
+###
+
+POST http://localhost:8080/profile/filter
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYxNTkzNjcsImV4cCI6MTY1NjI0NTc2NywiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.nIFg_rg2OMHMieHFX-FsihK7-s2nyTVc_ypCWFkTPGo
+
+{
+  "name": "user1",
+  "email": "1",
+  "createdDateFrom": "2022-06-06",
+  "createdDateTo": "2022-06-30"
+
+}

@@ -1,17 +1,15 @@
 package com.company.service;
 
+import com.company.dto.article.ArticleFilterDTO;
 import com.company.dto.article.*;
-import com.company.dto.category.CategoryDTO;
-import com.company.dto.region.RegionDTO;
-import com.company.dto.type.TypeDTO;
 import com.company.entity.*;
 import com.company.enums.ArticleStatus;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.ArticleLikeRepository;
 import com.company.repository.ArticleRepository;
 import com.company.repository.ArticleTypeRepository;
+import com.company.repository.custom.CustomArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +39,14 @@ public class ArticleService {
     @Autowired
     private ProfileService profileService;
 
-    public ArticleDTO create(ArticleCreateDTO dto, Integer profileId) {
+    @Autowired
+    private CustomArticleRepository customArticleRepository;
 
+    public ArticleDTO create(ArticleCreateDTO dto) {
+
+        ProfileEntity profile = profileService.getProfile();
         ArticleEntity entity = new ArticleEntity();
-        getArticleEntity(entity, dto, profileId);
+        getArticleEntity(entity, dto, profile.getId());
 
         articleRepository.save(entity);
 
@@ -105,11 +107,11 @@ public class ArticleService {
 
         dto.setTypeDTOList(articleTypeService.getTypeByArticle(entity));
 
-        Map<String, Integer> map = articleLikeRepository.countLikeDislike(entity.getUuid());
+        Map<String ,Integer> map = articleLikeRepository.countLikeDislike(entity.getUuid());
         System.out.println(map.get("like_count"));
         System.out.println(map.get("dislike_count"));
-        dto.setLikeCount(map.get("like_count"));
-        dto.setDislikeCount(map.get("dislike_count"));
+//        dto.setLikeCount(map.get("like_count"));
+//        dto.setDislikeCount(map.get("dislike_count"));
 
         return dto;
     }
@@ -138,9 +140,7 @@ public class ArticleService {
         Iterable<ArticleEntity> all = articleRepository.findAll();
         List<ArticleDTO> articleDTOList = new ArrayList<>();
 
-        all.forEach(articleEntity -> {
-            articleDTOList.add(getDTO(articleEntity));
-        });
+        all.forEach(articleEntity -> articleDTOList.add(getDTO(articleEntity)));
 
         return articleDTOList;
     }
@@ -152,9 +152,7 @@ public class ArticleService {
                 .findAllByStatusAndVisible(ArticleStatus.PUBLISHED, true);
         List<ArticleDTO> articleDTOList = new ArrayList<>();
 
-        all.forEach(articleEntity -> {
-            articleDTOList.add(getDTO(articleEntity));
-        });
+        all.forEach(articleEntity -> articleDTOList.add(getDTO(articleEntity)));
 
         return articleDTOList;
     }
@@ -174,17 +172,19 @@ public class ArticleService {
         return getDTO(articleEntity);
     }
 
-    public ArticleDTO update(ArticleCreateDTO dto, String uuid, Integer profileId) {
+    public ArticleDTO update(ArticleCreateDTO dto, String uuid) {
 
         Optional<ArticleEntity> optional = articleRepository.findById(uuid);
 
+
+        ProfileEntity profile = profileService.getProfile();
         if (optional.isEmpty()) {
             throw new ItemNotFoundException("Article not fount");
         }
 
         ArticleEntity entity = optional.get();
 
-        getArticleEntity(entity, dto, profileId);
+        getArticleEntity(entity, dto, profile.getId());
 
         articleRepository.save(entity);
 
@@ -199,11 +199,12 @@ public class ArticleService {
         });
     }
 
-    public ArticleDTO changeStatus(ArticleChangeStatusDTO dto, String uuid, Integer profileId) {
+    public ArticleDTO changeStatus(ArticleChangeStatusDTO dto, String uuid) {
 
+        ProfileEntity profile = profileService.getProfile();
         ArticleEntity entity = get(uuid);
 
-        entity.setPublisher(profileService.get(profileId));
+        entity.setPublisher(profile);
         entity.setPublicDate(LocalDateTime.now());
         entity.setStatus(dto.getStatus());
 
@@ -218,9 +219,7 @@ public class ArticleService {
                 .findTopLimitByArticleNative(key, limit);
 
         List<ArticleShortDTO> dtos = new ArrayList<>();
-        list.forEach(entity -> {
-            dtos.add(new ArticleShortDTO(entity.getUuid(), entity.getTitle(), entity.getPublicDate(), entity.getDescription()));
-        });
+        list.forEach(entity -> dtos.add(new ArticleShortDTO(entity.getUuid(), entity.getTitle(), entity.getPublicDate(), entity.getDescription())));
 
         return dtos;
 
@@ -246,7 +245,7 @@ public class ArticleService {
 
     public PageImpl getArticleListByCategoryKey(String categoryKey, Integer size, Integer page) {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Sort sort = Sort.by(Sort.Direction.ASC, "uuid");
         Pageable pageable = PageRequest.of(page, size, sort);
 
         Page<ArticleEntity> all = articleRepository.findAll(pageable);
@@ -255,9 +254,7 @@ public class ArticleService {
 
         List<ArticleDTO> dtoList = new LinkedList<>();
 
-        list.forEach(article -> {
-            dtoList.add(getDTO(article));
-        });
+        list.forEach(article -> dtoList.add(getDTO(article)));
 
         return new PageImpl(dtoList, pageable, all.getTotalElements());
 
@@ -280,10 +277,8 @@ public class ArticleService {
         Page<ArticleEntity> articlePage = articleRepository.findLast8NotIn(articleIdList, pageable);
 
         List<ArticleShortDTO> dtoList = new LinkedList<>();
-        articlePage.getContent().forEach(article -> {
-            dtoList.add(new ArticleShortDTO(article.getUuid(), article.getTitle(),
-                    article.getPublicDate(), article.getDescription()));
-        });
+        articlePage.getContent().forEach(article -> dtoList.add(new ArticleShortDTO(article.getUuid(), article.getTitle(),
+                article.getPublicDate(), article.getDescription())));
         return dtoList;
     }
 
@@ -303,9 +298,7 @@ public class ArticleService {
         List<ArticleEntity> read = articleRepository.mostRead(amount);
 
         List<ArticleDTO> articleDTOList = new ArrayList<>();
-        read.forEach(entity -> {
-            articleDTOList.add(getDTO(entity));
-        });
+        read.forEach(entity -> articleDTOList.add(getDTO(entity)));
 
         return articleDTOList;
     }
@@ -327,9 +320,8 @@ public class ArticleService {
 
         List<ArticleShortDTO> shortDTOS = new ArrayList<>();
 
-        list.forEach(entity -> {
-            shortDTOS.add(new ArticleShortDTO(entity.getUuid(),entity.getTitle(),entity.getPublicDate(),entity.getDescription()));
-        });
+        list.forEach(entity -> shortDTOS
+                .add(new ArticleShortDTO(entity.getUuid(), entity.getTitle(), entity.getPublicDate(), entity.getDescription())));
 
         return shortDTOS;
     }
@@ -337,5 +329,15 @@ public class ArticleService {
 
     public void save(ArticleEntity article) {
         articleRepository.save(article);
+    }
+
+    public List<ArticleShortDTO> filter(ArticleFilterDTO dto) {
+        List<ArticleEntity> list = customArticleRepository.filter(dto);
+
+        List<ArticleShortDTO> articleDTOS = new ArrayList<>();
+        list.forEach(entity -> articleDTOS.add(new ArticleShortDTO
+                (entity.getUuid(), entity.getTitle(), entity.getPublicDate(), entity.getDescription())));
+
+        return articleDTOS;
     }
 }

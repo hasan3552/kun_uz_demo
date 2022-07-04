@@ -1,0 +1,2 @@
+GET http://localhost:8080/email/pagination?page=0&size=4
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTYxNTIwMjUsImV4cCI6MTY1NjIzODQyNSwiaXNzIjoiTWF6Z2kgcHJvZHVjdGlvbiIsImlkIjoyLCJyb2xlIjoiQURNSU4ifQ.uiYobb0tnrcHupEtV6snjn66e6G2_DcpBGVsnif46Qk
